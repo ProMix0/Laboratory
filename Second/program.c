@@ -18,8 +18,10 @@ void main() {
   sort(strings, 8, &swaps, &digitsCount);
 
   printf("Swaps: %d, digits count: %d\n", swaps, digitsCount);
-  for (int i = 0; i < 8; i++)
+  for (int i = 0; i < 8; i++) {
     out_str(strings[i], 0, 0);
+    free(strings[i]);
+  }
 }
 
 int inp_str(char *str, int maxlen) {
