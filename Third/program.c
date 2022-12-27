@@ -10,21 +10,26 @@ struct employee {
 
 void input_employee(struct employee *emp);
 
-void sort(struct employee *emps);
+void sort(struct employee **emps);
 
 void print_employee(struct employee *emp);
 
 void main() {
     struct employee *employees = malloc(sizeof(struct employee) * 4);
+    struct employee **empl_index = malloc(sizeof(struct employee *) * 4);
+    for (int i = 0; i < 4; i++)
+        empl_index[i] = employees + i;
+
     for (int i = 0; i < 4; i++)
         input_employee(employees + i);
 
-    sort(employees);
+    sort(empl_index);
 
     for (int i = 0; i < 4; i++)
-        print_employee(employees + i);
+        print_employee(*(empl_index + i));
 
     free(employees);
+    free(empl_index);
 }
 
 void input_employee(struct employee *emp) {
@@ -38,14 +43,14 @@ void input_employee(struct employee *emp) {
     scanf("%d", &emp->salary);
 }
 
-void sort(struct employee *emps) {
+void sort(struct employee **emps) {
     char swap = 1;
     while (swap) {
         swap = 0;
 
         for (int i = 0; i < 4 - 1; i++)
-            if (emps[i].birth_year > emps[i + 1].birth_year) {
-                struct employee temp = emps[i];
+            if (emps[i]->birth_year > emps[i + 1]->birth_year) {
+                struct employee *temp = emps[i];
                 emps[i] = emps[i + 1];
                 emps[i + 1] = temp;
 
