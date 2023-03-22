@@ -9,7 +9,7 @@ asm(
 "jle f_end; \n"
 "mul ecx; \n"
 "jnc f_loop; \n"
-"mov eax,0; \n"
+"xor eax,eax; \n"
 "f_end:; \n"
 );
 }
