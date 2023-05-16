@@ -15,11 +15,11 @@ int DotProduct(short a[], short b[], int n) {
 		"add rsi,2\n"
 		"mov ax,[rdi]\n"
 		"add rdi,2\n"
-		"mul dx\n"
+		"imul ax,dx\n"
 		"jc return_error\n"
-		"cwd\n"
+		"cwde\n"
 		"add ebx,eax\n"
-		"jc return_error\n"
+		"jo return_error\n"
 		"loop loop\n"
 		"mov eax,ebx\n"
 		"jmp return\n"
@@ -47,11 +47,11 @@ void main() {
 	short a1[] = {1, 2, 3, 4, 5, 6}, b1[] = {1, 2, 3, 4, 5, 6};
 	test(a1, b1, 6);
 
-	short a2[] = {1, 2, 3, 4, 5, 6, 10}, b2[] = {1, 2, 3, 4, 5, 6, 10};
+	short a2[] = {1, 2, 3, 4, 5, 6, 10}, b2[] = {1, 2, 3, 4, 5, 6, -10};
 	test(a2, b2, 7);
 
 	test(a1, b2, 0);
 
-	short a3[] = {30000}, b3[] = {30000};
+	short a3[] = {256}, b3[] = {256};
 	test(a3, b3, 1);
 }
