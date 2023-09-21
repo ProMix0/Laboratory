@@ -40,6 +40,7 @@ int main(int argc, char *argv[]) {
 			printf("Failed to find function\n");
 			return -1;
 		}
+		dlclose(handle);
 	} else {
 		printf("Failed to load library\n");
 		return -1;
