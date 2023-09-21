@@ -1,23 +1,27 @@
 #include <stdio.h>
 
 int DotProduct(short a[], short b[], int n) {
-	asm("mov rcx,rdx\n"
+	asm("mov ecx,edx\n"
 
-		"test rcx,rcx\n"
+		"test ecx,ecx\n"
 		"jz return_zero\n"
 
-		"xor rbx,rbx\n"
+		"xor ebx,ebx\n"
 
 		"loop:\n"
-		"xor rdx,rdx\n"
-		"xor rax,rax\n"
+		"xor edx,edx\n"
+		"xor eax,eax\n"
 		"mov dx,[rsi]\n"
 		"add rsi,2\n"
 		"mov ax,[rdi]\n"
 		"add rdi,2\n"
-		"imul ax,dx\n"
-		"jc return_error\n"
+
 		"cwde\n"
+		"xchg eax,edx\n"
+		"cwde\n"
+
+		"imul eax,edx\n"
+		"jo return_error\n"
 		"add ebx,eax\n"
 		"jo return_error\n"
 		"loop loop\n"
@@ -44,14 +48,19 @@ void test(short* a, short* b, int n) {
 }
 
 void main() {
-	short a1[] = {1, 2, 3, 4, 5, 6}, b1[] = {1, 2, 3, 4, 5, 6};
+	short a1[] = {2, 2, 3, 43, 5, 6}, b1[] = {41, 21, 3, 4, 5, 6};
 	test(a1, b1, 6);
 
-	short a2[] = {1, 2, 3, 4, 5, 6, 10}, b2[] = {1, 2, 3, 4, 5, 6, -10};
+	short a2[] = {1, 2, 3, 4, -5, 6, 10}, b2[] = {1, 2, 3, 4, 5, 6, -10};
 	test(a2, b2, 7);
 
 	test(a1, b2, 0);
 
-	short a3[] = {256}, b3[] = {256};
-	test(a3, b3, 1);
+	short a3[3], b3[3];
+	for (int i = 0; i < 3; i++) {
+		a3[i] = 32767;
+		b3[i] = 32767;
+	}
+
+	test(a3, b3, 3);
 }
