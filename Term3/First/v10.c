@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
 	int replace_count = 0;
 	int first = 0;
 	read(inputFile, &first, 1);
-	int c;
+	int c = 0;
 	while (read(inputFile, &c, 1)) {
 		if (c == ' ' && limit > 0) {
 			write(outputFile, &first, 1);

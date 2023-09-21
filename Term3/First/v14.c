@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	int replaces = 0;
-	int c;
+	int c = 0;
 	while (read(inputFile, &c, 1)) {
 		if (c >= '0' && c <= '9') {
 			write(outputFile, &toReplace, 1);

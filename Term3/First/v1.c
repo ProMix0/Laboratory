@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	int deletions = 0;
-	int c;
+	int c = 0;
 	while (read(inputFile, &c, 1)) {
 		if (c != toDelete) {
 			write(outputFile, &c, 1);
