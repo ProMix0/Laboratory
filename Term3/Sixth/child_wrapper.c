@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -20,18 +21,51 @@ int main(int argc, char* argv[]) {
 
 	int count = argc / 2;
 	pthread_t threads[count];
-	results = malloc(sizeof(int) * count);
+	int pids[count];
+	int shm;
+	if ((shm = shm_open("lab6shm", O_CREAT | O_RDWR, 0777)) == -1) {
+		printf("Fail to open shared memory\n");
+		return -1;
+	}
+	if (ftruncate(shm, count * sizeof(int))) {
+		printf("Fail to set shared memory size\n");
+		return -1;
+	}
+	results = mmap(0, count * sizeof(int), PROT_WRITE | PROT_READ, MAP_SHARED,
+				   shm, 0);
 	args = argv;
 
 	for (int i = 0; i < count; i++) {
-		pthread_create(threads + i, 0, child_main, i);
+		int pid = fork();
+		switch (pid) {
+			case 0:
+				if ((shm = shm_open("lab6shm", O_RDWR, 0777)) == -1 ||
+					ftruncate(shm, count * sizeof(int))) {
+					printf("Fail to open shared memory\n");
+					return -1;
+				}
+				results = mmap(0, count * sizeof(int), PROT_WRITE | PROT_READ,
+							   MAP_SHARED, shm, 0);
+				return child_main(i);
+			case -1:
+				printf("Fail to fork\n");
+				return -1;
+			default:
+				pids[i] = pid;
+				break;
+		}
 	}
-
 	for (int i = 0; i < count; i++) {
-		pthread_join(threads[i], 0);
-		printf("Child done %d changes\n", results[i]);
+		int status = 0;
+		int err = waitpid(pids[i], &status, 0);
+		if (status < 0) {
+			printf("Child return error: %d\n", results[i]);
+		} else {
+			printf("Child done %d changes\n", results[i]);
+		}
 	}
 
-	free(results);
+	munmap(results, 4096);
+	shm_unlink("lab6shm");
 	return 0;
 }
