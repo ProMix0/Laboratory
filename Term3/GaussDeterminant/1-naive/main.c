@@ -4,6 +4,17 @@
 
 double calculate_determinant(double** matrix, int size) {
 	for (int row = 0; row < size - 1; row++) {
+		if (abs(matrix[row][row]) < 0.000000000000001) {
+			int pivot_row = row;
+			do {
+				pivot_row++;
+				if (pivot_row == size) return 0;
+
+			} while (abs(matrix[pivot_row][row]) < 0.000000000000001);
+			double* swap = matrix[row];
+			matrix[row] = matrix[pivot_row];
+			matrix[pivot_row] = swap;
+		}
 		for (int i = row + 1; i < size; i++) {
 			double factor = matrix[i][row] / matrix[row][row];
 			for (int j = row; j < size; j++) {
