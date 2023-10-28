@@ -1,16 +1,17 @@
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
 double calculate_determinant(double** matrix, int size) {
 	for (int row = 0; row < size - 1; row++) {
-		if (abs(matrix[row][row]) < 0.000000000000001) {
+		if (fabs(matrix[row][row]) < 1.0e-11) {
 			int pivot_row = row;
 			do {
 				pivot_row++;
 				if (pivot_row == size) return 0;
 
-			} while (abs(matrix[pivot_row][row]) < 0.000000000000001);
+			} while (fabs(matrix[pivot_row][row]) < 1.0e-11);
 			double* swap = matrix[row];
 			matrix[row] = matrix[pivot_row];
 			matrix[pivot_row] = swap;
