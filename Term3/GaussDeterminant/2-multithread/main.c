@@ -5,9 +5,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define CPUS 4
+#define CPUS 2
 
-sem_t sem_do, sem_done;
 int row, size;
 double** matrix;
 
@@ -22,11 +21,7 @@ void sub_row(int offset) {
 
 void* worker(void* arg) {
 	int offset = arg;
-	while (1) {
-		sem_wait(&sem_do);
-		sub_row(offset);
-		sem_post(&sem_done);
-	}
+	sub_row(offset);
 }
 
 double calculate_determinant(double** matrix) {
@@ -44,9 +39,11 @@ double calculate_determinant(double** matrix) {
 			matrix[row] = matrix[pivot_row];
 			matrix[pivot_row] = swap;
 		}
-		for (int i = 1; i < CPUS; i++) sem_post(&sem_do);
+		pthread_t threads[CPUS - 1];
+		for (int i = 1; i < CPUS; i++)
+			pthread_create(threads + i - 1, 0, worker, i);
 		sub_row(0);
-		for (int i = 1; i < CPUS; i++) sem_wait(&sem_done);
+		for (int i = 1; i < CPUS; i++) pthread_join(threads[i - 1], 0);
 	}
 
 	double result = 1;
@@ -76,12 +73,6 @@ int main(int argc, char* argv[]) {
 	if (from <= 0) {
 		fprintf(stderr, "Invalid start size\n");
 		return 1;
-	}
-	sem_init(&sem_do, 0, 0);
-	sem_init(&sem_done, 0, 0);
-	pthread_t threads[CPUS - 1];
-	for (int i = 1; i < CPUS; i++) {
-		pthread_create(threads + i - 1, 0, worker, i);
 	}
 	for (size = from; size < to; size++) {
 		matrix = malloc(size * size * sizeof(double) + size * sizeof(double*));
