@@ -31,13 +31,15 @@ void* worker(void* arg) {
 
 double calculate_determinant(double** matrix) {
 	for (row = 0; row < size - 1; row++) {
-		if (fabs(matrix[row][row]) < 1.0e-11) {
+		if (matrix[row][row] != matrix[row][row] ||
+			fabs(matrix[row][row]) < 1.0e-11) {
 			int pivot_row = row;
 			do {
 				pivot_row++;
 				if (pivot_row == size) return 0;
 
-			} while (fabs(matrix[pivot_row][row]) < 1.0e-11);
+			} while (matrix[pivot_row][row] != matrix[pivot_row][row] ||
+					 fabs(matrix[pivot_row][row]) < 1.0e-11);
 			double* swap = matrix[row];
 			matrix[row] = matrix[pivot_row];
 			matrix[pivot_row] = swap;
