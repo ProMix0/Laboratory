@@ -1,5 +1,6 @@
 #include <fcntl.h>
 #include <pthread.h>
+#include <semaphore.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,6 +24,7 @@ int main(int argc, char* argv[]) {
 	pthread_t threads[count];
 	int pids[count];
 	int shm;
+	sem_t *sem = sem_open("/nstu", O_CREAT, 0660, count);
 	if ((shm = shm_open("lab6shm", O_CREAT | O_RDWR, 0777)) == -1) {
 		printf("Fail to open shared memory\n");
 		return -1;
@@ -46,6 +48,7 @@ int main(int argc, char* argv[]) {
 				}
 				results = mmap(0, count * sizeof(int), PROT_WRITE | PROT_READ,
 							   MAP_SHARED, shm, 0);
+				sem_wait(sem);
 				return child_main(i);
 			case -1:
 				printf("Fail to fork\n");
@@ -55,6 +58,7 @@ int main(int argc, char* argv[]) {
 				break;
 		}
 	}
+	int summ = 0;
 	for (int i = 0; i < count; i++) {
 		int status = 0;
 		int err = waitpid(pids[i], &status, 0);
@@ -62,8 +66,10 @@ int main(int argc, char* argv[]) {
 			printf("Child return error: %d\n", results[i]);
 		} else {
 			printf("Child done %d changes\n", results[i]);
+			summ = summ + results[i];
 		}
 	}
+	printf("%d", summ);
 
 	munmap(results, 4096);
 	shm_unlink("lab6shm");
