@@ -6,12 +6,13 @@
 #include <unistd.h>
 
 int child_main(int argc, char *argv[]) {
-	char fileName[256];
-	char toReplace;
-	if (scanf("%s %c", fileName, &toReplace) != 2) {
-		printf("Fail to read args from input\n");
+	if (argc < 3) {
+		printf("Wrong arguments count\n");
 		return -1;
 	}
+
+	char *fileName = argv[1];
+	char toReplace = *argv[2];
 
 	int inputFile = open(fileName, O_RDONLY);
 	if (inputFile < 0) {
@@ -21,7 +22,7 @@ int child_main(int argc, char *argv[]) {
 
 	char destinationFileName[strlen(fileName) + 5];
 	strcpy(destinationFileName, fileName);
-	int outputFile = creat(strcat(destinationFileName, ".out"), O_WRONLY);
+	int outputFile = creat(strcat(destinationFileName, ".out"), O_WRONLY|S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (outputFile < 0) {
 		printf("Fail to write to %s\n", destinationFileName);
 		return -1;
@@ -48,6 +49,5 @@ int child_main(int argc, char *argv[]) {
 	close(inputFile);
 	close(outputFile);
 
-	printf("%d\n", result);
-	return 0;
+	return result;
 }
