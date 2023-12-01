@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <fcntl.h>
 #include <pthread.h>
 #include <semaphore.h>
@@ -24,7 +25,7 @@ int main(int argc, char* argv[]) {
 	pthread_t threads[count];
 	int pids[count];
 	int shm;
-	sem_t *sem = sem_open("/nstu", O_CREAT, 0660, count);
+	sem_t* sem = sem_open("/nstu", O_CREAT, 0777, count);
 	if ((shm = shm_open("lab6shm", O_CREAT | O_RDWR, 0777)) == -1) {
 		printf("Fail to open shared memory\n");
 		return -1;
@@ -73,5 +74,6 @@ int main(int argc, char* argv[]) {
 
 	munmap(results, 4096);
 	shm_unlink("lab6shm");
+	sem_unlink("/nstu");
 	return 0;
 }
