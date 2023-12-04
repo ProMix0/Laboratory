@@ -62,6 +62,7 @@ int main(int argc, char* argv[]) {
 				pids[i] = pid;
 				result = msgrcv(out_queue, &res_message, sizeof(int), 0, 0);
 				symma = symma + res_message.result;
+				printf("Child done %d changes\n", res_message.result);
 				break;
 		}
 	}

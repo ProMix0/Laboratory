@@ -6,12 +6,13 @@
 #include <unistd.h>
 
 int child_main(int argc, char *argv[]) {
-	char fileName[256];
-	int limit;
-	if (scanf("%s %d", fileName, &limit) != 2) {
-		printf("Fail to read args from input\n");
+	if (argc < 3) {
+		printf("Wrong arguments count\n");
 		return -1;
 	}
+
+	char *fileName = argv[1];
+	int limit = atoi(argv[2]);
 
 	int inputFile = open(fileName, O_RDONLY);
 	if (inputFile < 0) {
@@ -48,6 +49,5 @@ int child_main(int argc, char *argv[]) {
 	close(inputFile);
 	close(outputFile);
 
-	printf("%d\n", result);
-	return 0;
+	return result;
 }
