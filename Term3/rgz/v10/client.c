@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
 		mmap(0, 1024, PROT_WRITE | PROT_READ, MAP_SHARED, sh_file, 0);
 	if (map_mem == MAP_FAILED) {
 		printf("Unable to map shared file\n");
-		return errno;
+		return -1;
 	}
 
 	int queue = msgget(MSG_QUEUE, 0666);

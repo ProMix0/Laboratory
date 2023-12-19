@@ -30,7 +30,7 @@ int main() {
 	map_mem = mmap(0, 1024, PROT_WRITE | PROT_READ, MAP_SHARED, sh_file, 0);
 	if (map_mem == MAP_FAILED) {
 		fprintf(stderr, "Unable to map shared file\n");
-		return errno;
+		return -1;
 	}
 
 	queue = msgget(MSG_QUEUE, IPC_CREAT | 0666);
