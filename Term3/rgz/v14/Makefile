@@ -2,7 +2,7 @@
 
 build:
 	clang client.c
-	clang daemon.c -o /home/misha/daemon
+	clang daemon.c -o ~/daemon
 	cp -f systemd.unit ~/.config/systemd/user/rgz.service
 	systemctl --user daemon-reload
 

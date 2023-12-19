@@ -3,7 +3,7 @@
 #define READ_RESULT 76
 #define READ_DONE 42
 
-#define SH_FILE "/home/misha/sharedlabfile"
+#define SH_FILE "/home/~/sharedlabfile"
 
 #define MSG_QUEUE 36
 

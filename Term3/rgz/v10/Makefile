@@ -1,8 +1,9 @@
 .PHONY: build
 
 build:
+	sed 's/~/'"$$USER"'/g' common.h.tpl > common.h
 	clang client.c
-	clang daemon.c -o /home/misha/daemon
+	clang daemon.c -o ~/daemon
 	cp -f systemd.unit ~/.config/systemd/user/rgz.service
 	systemctl --user daemon-reload
 
