@@ -10,4 +10,3 @@
 typedef struct {
 	long type;
 } message_t;
-
