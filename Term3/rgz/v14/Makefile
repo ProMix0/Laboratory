@@ -3,7 +3,7 @@
 build:
 	clang client.c
 	clang daemon.c -o ~/daemon
-	cp -f systemd.unit ~/.config/systemd/user/rgz.service
+	sed 's/~/'"$$USER"'/g' systemd.unit > ~/.config/systemd/user/rgz.service
 	systemctl --user daemon-reload
 
 start:
