@@ -33,7 +33,10 @@ int main() {
 		fprintf(stderr, "Waiting for client connection\n");
 
 		char buf[1024];
-		read(arg_fd, buf, 1024);
+		int readed = 0;
+		do {
+			readed = read(arg_fd, buf, 1024);
+		} while (readed == 0);
 		fprintf(stderr, "Arguments received: \"%s\"\nStart processing\n", buf);
 
 		int result = process_args(buf);
