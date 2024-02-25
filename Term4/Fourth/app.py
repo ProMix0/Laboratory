@@ -48,6 +48,8 @@ def user_get(id):
 def user_update(id):
     name = request.form['name']
     repo = request.form['repo']
+    if '.' not in repo:
+        return "Unable to add invalid repo"
     connection = get_db()
     connection.execute("UPDATE portfolio SET name = ?, repo = ? WHERE ROWID = ?", (name, repo, id))
     connection.commit()
@@ -77,7 +79,9 @@ def new_user_get():
 def new_user_post():
     name = request.form['name']
     repo = request.form['repo']
+    if '.' not in repo:
+        return "Unable to add invalid repo"
     connection = get_db()
-    connection.execute('INSERT INTO portfolio VALUES (?, ?)', (name, repo))
+    cursor = connection.execute('INSERT INTO portfolio VALUES (?, ?)', (name, repo))
     connection.commit()
     return redirect(url_for('user_get', id=cursor.lastrowid))
