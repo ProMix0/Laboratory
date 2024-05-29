@@ -157,5 +157,5 @@ int main(int argc, char* argv[]) {
 
 	double determ = calculate_determinant(matrix, size);
 
-	printf("Result: %f\n", time, determ);
+	printf("Result: %f\n", determ);
 }

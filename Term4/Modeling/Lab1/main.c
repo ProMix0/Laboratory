@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define iterate_comps for (comp_index = 0; comp_index < 3; comp_index++)
+#define COMP_COUNT 3
+#define iterate_comps for (comp_index = 0; comp_index < COMP_COUNT; comp_index++)
 
 enum state { IDLE, WORKING, QUEUE_FILLED };
 
@@ -16,16 +17,16 @@ int main(int argc, char *argv[]) {
   if (argc > 1)
     srand(atoi(argv[1]));
 
-  struct computer pool[3];
+  struct computer pool[COMP_COUNT];
   int dropped = 0, comp_index;
   int time_in_queue = 0, tasks_in_queue = 0;
   int time_in_system = 0, tasks_in_system = 0;
 
   int comps_order[10] = {2, 0, 2, 1, 2, 0, 2, 1, 2, 0};
   int comp_order_index = 0;
-  memset(pool, 0, sizeof(struct computer) * 3);
+  memset(pool, 0, sizeof(struct computer) * COMP_COUNT);
 
-  int time = 1 + rand() % 3;
+  int time = 1 + rand() % COMP_COUNT;
   for (int i = 0; i < 1000 * 100; i++) {
     int handle_delay = 1 + rand() % 7;
 
@@ -71,12 +72,12 @@ int main(int argc, char *argv[]) {
       pool[comp_index].work_time += handle_delay;
       break;
     }
-    time += 1 + rand() % 3;
+    time += 1 + rand() % COMP_COUNT;
   }
 
   int work_done = 0;
 
-  for (int i = 0; i < 2; i++) {
+  for (int i = 0; i < COMP_COUNT - 1; i++) {
     iterate_comps {
       if (pool[comp_index].change_timestamp > time)
         time = pool[comp_index].change_timestamp;
