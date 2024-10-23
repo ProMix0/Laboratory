@@ -35,12 +35,10 @@ int main(int argc, char *argv[]) {
   MPI_Comm_rank(MPI_COMM_WORLD, &myid);
 
   int64_t result_n = -1;
-  int result_len = 0;
   for (int64_t i = n_max - 1 - myid; i > 0; i -= instances) {
     int len = seq_len(i);
     if (len == target_len) {
       result_n = i;
-      result_len = len;
       break;
     }
   }

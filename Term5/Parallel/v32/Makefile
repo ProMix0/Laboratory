@@ -3,8 +3,8 @@
 all: serial parallel
 
 serial: serial.c
-	$(CC) serial.c -o serial
+	$(CC) -std=c99 serial.c -o serial
 
 parallel: parallel.c
-	mpicc parallel.c -o _parallel
+	mpicc -std=c99 parallel.c -o _parallel
 

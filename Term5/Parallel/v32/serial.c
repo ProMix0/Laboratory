@@ -28,12 +28,10 @@ int main(int argc, char *argv[]) {
   gettimeofday(&start, 0);
   uint64_t result_n = -1;
 
-  int result_len = 0;
   for (uint64_t i = n_max - 1; i > 0; i--) {
     int len = seq_len(i);
     if (len == target_len) {
       result_n = i;
-      result_len = len;
       break;
     }
   }
@@ -44,11 +42,11 @@ int main(int argc, char *argv[]) {
       (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1e6;
   printf("Time: %lf\n", time);
   if (result_n == -1) {
-    printf("Can't find N, matching conditions\n");
+    printf("Can't find N that matches conditions\n");
     return 1;
   }
 
-  printf("Len of N(%lu) is: %d\n", result_n, result_len);
+  printf("N = %lu\n", result_n);
 
   return 0;
 }
