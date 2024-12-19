@@ -1,10 +1,20 @@
 .PHONY: run all parallel
 
+Q=@
+N=1000000
+LEN=100
+
+run: all
+	$Qecho Serial:
+	$Q./serial $N $(LEN)
+	$Qecho Parallel:
+	$Qmpiexec -n "$$(nproc)" ./parallel $N $(LEN)
+
 all: serial parallel
 
 serial: serial.c
-	$(CC) -std=c99 serial.c -o serial
+	$Q$(CC) -std=c99 serial.c -o serial
 
 parallel: parallel.c
-	mpicc -std=c99 parallel.c -o _parallel
+	$Qmpicc -std=c99 parallel.c -o parallel
 
