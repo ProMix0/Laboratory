@@ -2,12 +2,14 @@
 
 Q=@
 SEED=15
+COUNT=100
+TIME=50
 
 run: serial parallel
 	$Qecho Serial execution
-	$Q./serial 100 50
+	$Q./serial $(COUNT) $(TIME)
 	$Qecho Parallel execution
-	$Q./parallel 100 50
+	$Q./parallel $(COUNT) $(TIME)
 	$Qecho Difference:
 	$Q-diff result_serial result_parallel
 

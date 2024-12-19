@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#define THREADS_PER_BLOCK 64
+#define THREADS_PER_BLOCK 4
 #define GRAVITATIONAL_CONSTANT 6.7e-11
 #define TIME_STEP 0.001f
 #define PI 3.14152926f
