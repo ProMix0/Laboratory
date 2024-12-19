@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
       (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1e6;
   printf("Time: %lf\n", time);
 
-  printf("m: %d, p: %d, M: %d\n", m, p, n);
+  printf("m: %ld, p: %ld, M: %ld\n", m, p, n);
 
   return 0;
 }

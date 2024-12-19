@@ -24,8 +24,7 @@ int main(int argc, char *argv[]) {
   gettimeofday(&start, 0);
   uint64_t result = -1;
 
-  uint64_t M = 0;
-  int m = 0, p = 0;
+  uint64_t M = 0, m = 0, p = 0;
   int exit = 0;
 
 #pragma omp parallel shared(n, exit, M, m, p)
@@ -83,7 +82,7 @@ int main(int argc, char *argv[]) {
       (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1e6;
   printf("Time: %lf\n", time);
 
-  printf("m: %d, p: %d, M: %lu\n", m, p, n);
+  printf("m: %ld, p: %ld, M: %lu\n", m, p, n);
 
   return 0;
 }

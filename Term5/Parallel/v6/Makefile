@@ -1,6 +1,13 @@
 .PHONY: run all parallel
 
 Q=@
+N=978705920
+
+run: all
+	@echo Serial version:
+	$(Q)./serial $N
+	@echo Parallel version:
+	$(Q)./parallel $N
 
 all: serial parallel
 
@@ -9,11 +16,4 @@ serial: serial.c
 
 parallel: parallel.c
 	$(Q)$(CC) -std=c99 parallel.c -o parallel -lm -fopenmp
-
-run: all
-	@echo Remember to set N variable
-	@echo Serial version:
-	$(Q)./serial $N
-	@echo Parallel version:
-	$(Q)./parallel $N
 
