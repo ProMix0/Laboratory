@@ -189,13 +189,13 @@ int main(int argc, char **argv) {
   ret = clGetPlatformIDs(qty_platforms, platforms, NULL);
   for (int i = 0; i < qty_platforms; i++) {
     ret =
-        clGetDeviceIDs(platforms[i], /*CL_DEVICE_TYPE_ALL*/ CL_DEVICE_TYPE_GPU,
+        clGetDeviceIDs(platforms[i], CL_DEVICE_TYPE_GPU,
                        0, NULL, &qty_devices[i]);
     if (qty_devices[i]) {
       devices[i] =
           (cl_device_id *)malloc(qty_devices[i] * sizeof(cl_device_id));
       ret = clGetDeviceIDs(platforms[i],
-                           /*CL_DEVICE_TYPE_ALL*/ CL_DEVICE_TYPE_GPU,
+                           CL_DEVICE_TYPE_GPU,
                            qty_devices[i], devices[i], NULL);
     }
   }
@@ -240,11 +240,11 @@ int main(int argc, char **argv) {
   gettimeofday(&start, 0);
 
   size_t offset = 0, size = count / 4, size_shifted = size - 1;
-  for (int i = 0; i < count - 1; i++) {
-    clEnqueueNDRangeKernel(queue, swap_kernel, 1, &offset, &size, NULL, 0, NULL,
-                           NULL);
+  for (int i = 0; i < count / 4; i++) {
     clEnqueueNDRangeKernel(queue, swap_shifted_kernel, 1, &offset,
                            &size_shifted, NULL, 0, NULL, NULL);
+    clEnqueueNDRangeKernel(queue, swap_kernel, 1, &offset, &size, NULL, 0, NULL,
+                           NULL);
   }
   clFinish(queue);
 
