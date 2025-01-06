@@ -1,0 +1,401 @@
+DROP DATABASE movies;
+CREATE DATABASE movies;
+
+
+
+CREATE ROLE operator LOGIN PASSWORD 'password';
+CREATE ROLE viewer LOGIN PASSWORD 'password';
+CREATE ROLE admin LOGIN PASSWORD 'password';
+CREATE ROLE analyst LOGIN PASSWORD 'password';
+
+
+GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO operator;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO operator;
+
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO viewer;
+
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO admin;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO admin;
+
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO analyst;
+
+
+
+\set ON_ERROR_STOP on
+
+\c movies;
+
+CREATE TABLE genres (
+    id SERIAL PRIMARY KEY,  
+    genre VARCHAR(64) NOT NULL UNIQUE
+);
+
+CREATE TABLE countries (
+    id SERIAL PRIMARY KEY,  
+    country VARCHAR(64) NOT NULL UNIQUE
+);
+
+CREATE TABLE movies (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    price INT CHECK (price >= 0),
+    year SMALLINT CHECK (year > 1894),
+    genre_id INT REFERENCES genres(id) ON DELETE RESTRICT,
+    country_id INT REFERENCES countries(id) ON DELETE RESTRICT,
+    age_rating SMALLINT CHECK (age_rating >= 0)
+);
+
+
+CREATE TABLE cities (
+    id SERIAL PRIMARY KEY,  
+    city VARCHAR(64) NOT NULL UNIQUE
+);
+
+CREATE TYPE gender AS ENUM ('male', 'female');
+
+
+CREATE TABLE persons (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    wealth INT CHECK (wealth >= 0),
+    gender gender,
+    city_id INT REFERENCES cities(id) ON DELETE RESTRICT
+);
+
+CREATE TYPE role AS ENUM ('actor', 'producer', 'director', 'president');
+
+CREATE TABLE movie_production (
+    movie_id INT REFERENCES movies(id) ON DELETE RESTRICT,
+    person_id INT REFERENCES persons(id) ON DELETE RESTRICT,
+    role role,
+    PRIMARY KEY (movie_id, person_id, role)
+);
+
+CREATE TABLE movie_distribution (
+    movie_id INT REFERENCES movies(id) ON DELETE RESTRICT,
+    country_id INT REFERENCES countries(id) ON DELETE RESTRICT,
+    income INT CHECK (income >= 0),
+    views INT CHECK (income >= 0),
+    PRIMARY KEY (movie_id, country_id)
+);
+
+
+
+INSERT INTO genres (genre) VALUES
+('action'),
+('thriller'),
+('drama'),
+('comedy'),
+('documental');
+
+INSERT INTO countries (country) VALUES
+('Other'),
+('USA'),
+('Germany'),
+('Russia'),
+('France');
+
+INSERT INTO cities (city) VALUES
+('Los Angeles'),
+('New York'),
+('Moscow');
+
+INSERT INTO persons (name, wealth, gender, city_id) VALUES
+('Quentin Tarantino', 120000, 'male', (SELECT id FROM cities WHERE city = 'Los Angeles')),
+('Uma Thurman', 45000, 'female', (SELECT id FROM cities WHERE city = 'New York')),
+('Harvey Weinstein', 25000, 'male', (SELECT id FROM cities WHERE city = 'Los Angeles')),
+('Никита Михалков', 24999, 'male', (SELECT id FROM cities WHERE city = 'Moscow')),
+('Варвара Авдюшко', 101, 'female', (SELECT id FROM cities WHERE city = 'Moscow'))
+;
+
+INSERT INTO movies (name, price, year, genre_id, country_id, age_rating) VALUES
+('Kill Bill vol. 1', 30000, 2003, (SELECT id FROM genres WHERE genre = 'action'), (SELECT id FROM countries WHERE country = 'USA'), 18);
+INSERT INTO movie_production (movie_id, person_id, role) VALUES
+((SELECT id FROM movies WHERE name = 'Kill Bill vol. 1'), (SELECT id FROM persons WHERE name = 'Quentin Tarantino'), 'director'),
+((SELECT id FROM movies WHERE name = 'Kill Bill vol. 1'), (SELECT id FROM persons WHERE name = 'Uma Thurman'), 'actor'),
+((SELECT id FROM movies WHERE name = 'Kill Bill vol. 1'), (SELECT id FROM persons WHERE name = 'Harvey Weinstein'), 'producer'),
+((SELECT id FROM movies WHERE name = 'Kill Bill vol. 1'), (SELECT id FROM persons WHERE name = 'Harvey Weinstein'), 'president')
+;
+INSERT INTO movie_distribution (movie_id, country_id, income, views) VALUES
+((SELECT id FROM movies WHERE name = 'Kill Bill vol. 1'), (SELECT id FROM countries WHERE country = 'USA'), 70000, 14000000),
+((SELECT id FROM movies WHERE name = 'Kill Bill vol. 1'), (SELECT id FROM countries WHERE country = 'Russia'), 3000, 6000000),
+((SELECT id FROM movies WHERE name = 'Kill Bill vol. 1'), (SELECT id FROM countries WHERE country = 'Other'), 110000, 22000000)
+;
+
+INSERT INTO movies (name, price, year, genre_id, country_id, age_rating) VALUES
+('Kill Bill vol. 2', 30000, 2004, (SELECT id FROM genres WHERE genre = 'action'), (SELECT id FROM countries WHERE country = 'USA'), 18);
+INSERT INTO movie_production (movie_id, person_id, role) VALUES
+((SELECT id FROM movies WHERE name = 'Kill Bill vol. 2'), (SELECT id FROM persons WHERE name = 'Quentin Tarantino'), 'director'),
+((SELECT id FROM movies WHERE name = 'Kill Bill vol. 2'), (SELECT id FROM persons WHERE name = 'Uma Thurman'), 'actor'),
+((SELECT id FROM movies WHERE name = 'Kill Bill vol. 2'), (SELECT id FROM persons WHERE name = 'Harvey Weinstein'), 'producer'),
+((SELECT id FROM movies WHERE name = 'Kill Bill vol. 2'), (SELECT id FROM persons WHERE name = 'Harvey Weinstein'), 'president')
+;
+INSERT INTO movie_distribution (movie_id, country_id, income, views) VALUES
+((SELECT id FROM movies WHERE name = 'Kill Bill vol. 2'), (SELECT id FROM countries WHERE country = 'USA'), 66000, 13200000),
+((SELECT id FROM movies WHERE name = 'Kill Bill vol. 2'), (SELECT id FROM countries WHERE country = 'Russia'), 3000, 6000000),
+((SELECT id FROM movies WHERE name = 'Kill Bill vol. 2'), (SELECT id FROM countries WHERE country = 'Other'), 85000, 17000000)
+;
+
+INSERT INTO movies (name, price, year, genre_id, country_id, age_rating) VALUES
+('Eternal sunshine of the spotless mind', 20000, 2004, (SELECT id FROM genres WHERE genre = 'drama'), (SELECT id FROM countries WHERE country = 'USA'), 18);
+INSERT INTO movie_distribution (movie_id, country_id, income, views) VALUES
+((SELECT id FROM movies WHERE name = 'Eternal sunshine of the spotless mind'), (SELECT id FROM countries WHERE country = 'USA'), 34000, 6800000),
+((SELECT id FROM movies WHERE name = 'Eternal sunshine of the spotless mind'), (SELECT id FROM countries WHERE country = 'Russia'), 865, 173000),
+((SELECT id FROM movies WHERE name = 'Eternal sunshine of the spotless mind'), (SELECT id FROM countries WHERE country = 'Other'), 37000, 7400000)
+;
+
+INSERT INTO movies (name, price, year, genre_id, country_id, age_rating) VALUES
+('12', 2500, 2007, (SELECT id FROM genres WHERE genre = 'drama'), (SELECT id FROM countries WHERE country = 'Russia'), 18);
+INSERT INTO movie_production (movie_id, person_id, role) VALUES
+((SELECT id FROM movies WHERE name = '12'), (SELECT id FROM persons WHERE name = 'Никита Михалков'), 'director'),
+((SELECT id FROM movies WHERE name = '12'), (SELECT id FROM persons WHERE name = 'Никита Михалков'), 'actor'),
+((SELECT id FROM movies WHERE name = '12'), (SELECT id FROM persons WHERE name = 'Никита Михалков'), 'president')
+;
+INSERT INTO movie_distribution (movie_id, country_id, income, views) VALUES
+((SELECT id FROM movies WHERE name = '12'), (SELECT id FROM countries WHERE country = 'USA'), 125, 25000),
+((SELECT id FROM movies WHERE name = '12'), (SELECT id FROM countries WHERE country = 'Other'), 7400, 1480000),
+((SELECT id FROM movies WHERE name = '12'), (SELECT id FROM countries WHERE country = 'Russia'), 6800, 1360000)
+;
+
+INSERT INTO movies (name, price, year, genre_id, country_id, age_rating) VALUES
+('Чтобы помнили', 0, 1993, (SELECT id FROM genres WHERE genre = 'documental'), (SELECT id FROM countries WHERE country = 'Russia'), 12);
+INSERT INTO movie_production (movie_id, person_id, role) VALUES
+((SELECT id FROM movies WHERE name = 'Чтобы помнили'), (SELECT id FROM persons WHERE name = 'Варвара Авдюшко'), 'actor')
+;
+
+INSERT INTO movies (name, price, year, genre_id, country_id, age_rating) VALUES
+('Ночной дозор', 4200, 2004, (SELECT id FROM genres WHERE genre = 'thriller'), (SELECT id FROM countries WHERE country = 'Russia'), 18);
+INSERT INTO movie_production (movie_id, person_id, role) VALUES
+((SELECT id FROM movies WHERE name = 'Ночной дозор'), (SELECT id FROM persons WHERE name = 'Варвара Авдюшко'), 'producer')
+;
+
+
+\echo LEFT JOIN
+SELECT movies.name, countries.country
+FROM movies
+LEFT JOIN countries ON movies.country_id = countries.id;
+
+\echo RIGHT JOIN
+SELECT movies.name, countries.country
+FROM movies
+RIGHT JOIN countries ON movies.country_id = countries.id;
+
+
+\echo 1. Для каждого фильма указать сведения о нем (страна, стоимость, жанр, количество зрителей, перевод — сколько языков, в каких странах демонстрировался и т.п.)
+
+SELECT 
+movies.name,
+movies.year,
+movies.price,
+genres.genre,
+film_country.country,
+SUM(movie_distribution.views) AS views,
+ARRAY_AGG(show_country.country ORDER BY show_country.country) AS showed_in
+FROM movies
+LEFT JOIN movie_distribution ON movie_distribution.movie_id = movies.id
+LEFT JOIN genres ON genres.id = movies.genre_id
+LEFT JOIN countries film_country ON film_country.id = movies.country_id
+LEFT JOIN countries show_country ON show_country.id = movie_distribution.country_id
+GROUP BY movies.name, movies.year, movies.price, genres.genre, film_country.country;
+
+\echo 2. Для каждого фильма (в целом и по жанрам) выдать список, отсортированный: по году выпуска, по странам
+
+SELECT 
+movies.name, 
+movies.year,
+countries.country
+FROM movies
+LEFT JOIN countries ON movies.country_id = countries.id
+ORDER BY movies.year DESC;
+
+SELECT 
+movies.name, 
+movies.year,
+countries.country
+FROM movies
+LEFT JOIN countries ON movies.country_id = countries.id
+ORDER BY countries.country DESC;
+
+SELECT 
+movies.name, 
+genres.genre,
+movies.year,
+countries.country
+FROM movies
+LEFT JOIN countries ON movies.country_id = countries.id
+LEFT JOIN genres ON movies.genre_id = genres.id
+ORDER BY genres.genre, movies.year DESC;
+
+SELECT 
+movies.name, 
+genres.genre,
+movies.year,
+countries.country
+FROM movies
+LEFT JOIN countries ON movies.country_id = countries.id
+LEFT JOIN genres ON movies.genre_id = genres.id
+ORDER BY genres.genre, countries.country DESC;
+
+\echo 3. Найти самый дорогой фильм, наиболее популярный, самый старый по году выпуска и т.д
+
+SELECT
+name,
+price
+FROM movies
+ORDER BY price DESC LIMIT 1;
+
+SELECT 
+movies.name,
+SUM(movie_distribution.views) AS views
+FROM movies
+INNER JOIN movie_distribution ON movie_distribution.movie_id = movies.id
+GROUP BY movies.name
+ORDER BY views DESC LIMIT 1;
+
+SELECT
+name,
+year
+FROM movies
+ORDER BY year ASC LIMIT 1;
+
+\echo 4. Для заданного жанра (выбор жанра) определить все фильмы, чья стоимость меньше, чем заданный фильм (выбор фильма) из заданной страны (выбор страны)
+
+SELECT
+name
+FROM movies
+LEFT JOIN genres ON movies.genre_id = genres.id
+WHERE genres.genre = 'drama'
+AND price < (SELECT price FROM movies WHERE name = 'Kill Bill vol. 1');
+
+\echo 5. Найти все фильмы со стоимостью в заданных пределах (выбор) по заданному году выпуска (ввод года выпуска) для заданной страны (выбор страны)
+
+SELECT
+name
+FROM movies
+LEFT JOIN countries ON movies.country_id = countries.id
+WHERE price BETWEEN 5000 AND 25000
+AND year = 2004
+AND countries.country = 'USA';
+
+\echo 6. Найти долю дешёвых, долю дорогих фильмов для заданной страны (выбор страны) заданного жанра (выбор жанра)
+
+SELECT 
+COUNT(*) * 100.0 / (SELECT COUNT(*) FROM movies
+	LEFT JOIN countries ON movies.country_id = countries.id
+	LEFT JOIN genres ON movies.genre_id = genres.id
+	WHERE countries.country = 'USA'
+	AND genres.genre = 'action') AS cheap_items_percentage
+FROM movies
+LEFT JOIN countries ON movies.country_id = countries.id
+LEFT JOIN genres ON movies.genre_id = genres.id
+WHERE countries.country = 'USA'
+AND genres.genre = 'action'
+AND price < (SELECT AVG(price) FROM movies);
+
+SELECT 
+COUNT(*) * 100.0 / (SELECT COUNT(*) FROM movies
+	LEFT JOIN countries ON movies.country_id = countries.id
+	LEFT JOIN genres ON movies.genre_id = genres.id
+	WHERE countries.country = 'USA'
+	AND genres.genre = 'action') AS expensive_items_percentage
+FROM movies
+LEFT JOIN countries ON movies.country_id = countries.id
+LEFT JOIN genres ON movies.genre_id = genres.id
+WHERE countries.country = 'USA'
+AND genres.genre = 'action'
+AND price >= (SELECT AVG(price) FROM movies);
+
+\echo 7. Найти страны, где показано наибольшее число фильмов заданного жанра (выбор жанра)
+
+SELECT
+countries.country,
+COUNT(*) AS count
+FROM countries
+INNER JOIN movie_distribution ON countries.id = movie_distribution.country_id
+LEFT JOIN movies ON movie_distribution.movie_id = movies.id
+LEFT JOIN genres ON movies.genre_id = genres.id
+WHERE genres.genre = 'action'
+GROUP BY countries.country
+ORDER BY count DESC LIMIT 1;
+
+\echo 8. Найти всех актёров, каждый из которых либо мужчина, либо живёт в Париже (выбор города)
+
+SELECT
+name,
+gender,
+cities.city
+FROM persons
+INNER JOIN movie_production ON persons.id = movie_production.person_id
+LEFT JOIN cities ON persons.city_id = cities.id
+WHERE movie_production.role = 'actor'
+AND (gender = 'male'
+OR cities.city = 'Paris');
+
+\echo 9. Найти имена и адреса всех актрис, которые одновременно являются президентами киностудий или продюсерами, обладающими совокупным годовым доходом в размере свыше 100000$
+
+SELECT
+name,
+cities.city,
+wealth,
+joined.role
+FROM persons
+LEFT JOIN cities ON city_id = cities.id
+INNER JOIN movie_production ON (persons.id = movie_production.person_id AND movie_production.role = 'actor')
+INNER JOIN movie_production joined ON (persons.id = joined.person_id AND joined.role = 'producer')
+WHERE wealth > 100
+AND gender = 'female';
+
+\echo 10. Найти, кто из актёров-мужчин участвовал в съёмкох фильма «Терминатор» (выбор наименования любого другого фильма)
+
+SELECT
+persons.name
+FROM persons
+INNER JOIN movie_production ON (persons.id = movie_production.person_id AND movie_production.role = 'actor')
+INNER JOIN movies ON (movies.id = movie_production.movie_id AND movies.name = '12')
+WHERE gender = 'male';
+
+\echo 11. Для заданного актёра (выбор актёра) найти, в каких фильмах снимался в 1995 году (ввод любого года)
+
+SELECT
+movies.name
+FROM persons
+RIGHT JOIN movie_production ON (movie_production.person_id = persons.id AND movie_production.role = 'actor')
+LEFT JOIN movies ON movies.id = movie_production.movie_id
+WHERE movies.year = 2004 AND persons.name = 'Uma Thurman';
+
+\echo 12. Найти, кто из руководителей индустрии кино обладает большим состоянием, чем актёр Иванов (выбор)
+
+SELECT
+name,
+wealth
+FROM persons
+INNER JOIN movie_production ON (movie_production.person_id = persons.id AND movie_production.role = 'president')
+WHERE wealth > (SELECT wealth FROM persons WHERE name = 'Никита Михалков')
+GROUP BY name, wealth;
+
+\echo 13. Найти имена тех президентов киностудий, которые одновременно является и актёрами
+
+SELECT
+name
+FROM persons
+INNER JOIN movie_production ON (persons.id = movie_production.person_id AND movie_production.role = 'actor')
+INNER JOIN movie_production joined ON (persons.id = joined.person_id AND joined.role = 'president');
+
+\echo 14. Найти все фильмы заданного года выпуска (ввод года выпуска), чья стоимость больше, чем средняя стоимость фильмов из заданной страны (выбор страны)
+
+SELECT
+movies.name
+FROM movies
+WHERE year = 2004
+AND price > (SELECT AVG(price) FROM movies
+	INNER JOIN countries ON (country_id = countries.id AND country = 'Russia'));
+
+\echo 15. Найти все фильмы, предназначенные для заданного возраста (выбор возраста, например, 6+, 12+ и т.д.), чья стоимость больше, чем средняя стоимость фильмов заданного жанра (выбор жанра)
+
+SELECT
+name
+FROM movies
+WHERE age_rating <= 18
+AND price > (SELECT AVG(price) FROM movies
+	INNER JOIN genres ON (genre_id = genres.id AND genre = 'drama'));
+
