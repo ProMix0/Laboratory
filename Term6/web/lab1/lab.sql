@@ -63,3 +63,11 @@ UPDATE orderers SET name = 'House M.D.' WHERE name = 'Gregory House';
 
 DELETE FROM items WHERE name = 'Bad stuff';
 
+SELECT orders.id,employes.name,orders.price,items.name,clients.name,orderers.name
+FROM orders
+LEFT JOIN employes ON employee_id = employes.id
+LEFT JOIN items ON item_id = items.id
+LEFT JOIN clients ON client_id = clients.id
+LEFT JOIN orderers ON orderer_id = orderers.id
+ORDER BY orders.id;
+
