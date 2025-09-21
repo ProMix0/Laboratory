@@ -67,6 +67,6 @@ func main() {
 	defer file.Close()
 	http.HandleFunc("/index", handler)
 	http.HandleFunc("/log", handler_log)
-	fmt.Println("Start listening at http://localhost:8080/index")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	fmt.Println("Start listening at http://localhost:8082/index")
+	log.Fatal(http.ListenAndServe(":8082", nil))
 }

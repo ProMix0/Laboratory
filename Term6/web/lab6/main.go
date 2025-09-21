@@ -226,6 +226,6 @@ func main() {
 	http.HandleFunc("/logout", logout_handler)
 	http.HandleFunc("/histogram", histogram_handler)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-	fmt.Println("Start listening at http://localhost:8080/index")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	fmt.Println("Start listening at http://localhost:8086/index")
+	log.Fatal(http.ListenAndServe(":8086", nil))
 }
