@@ -62,6 +62,7 @@ func DeleteCurrentSession(w http.ResponseWriter, r *http.Request) error {
 		return errors.New("Session doesn't exist")
 	}
 	session.Options.MaxAge = -1
+	session.Options.Secure = false
 	err := session.Save(r, w)
 	return err
 }
