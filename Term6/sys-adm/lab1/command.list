@@ -1,0 +1,20 @@
+#!/bin/sh
+
+#2
+grep -c yandex.com/bots /opt/access.log
+
+#3
+awk -F'"' '/GET\ \/~malyavko/{if ($3 !~ /^ 2/) print $2}' /opt/access.log > malyavko_miss.log
+
+#4
+awk -F'"' '/GET\ \/~malyavko/{if ($3 ~ /^ 200/) split($3, results, " "); printf "\"%s\" %d\n", $2, results[2]}' /opt/access.log | sort -k 4 -n -r -u | head -n 10 > malyavko_top.log
+
+#5
+grep -e ':2[123]:..:..' -e ':0[0-7]:..:..' -e ':08:[0-2].:..' /opt/access.log | awk -F'"' '{split($1, result, "[:[]"); date =  gensub("/", "-", "g", result[2]); cmd="date -d " date " +%u"; (cmd | getline day); close(cmd); if (day != 7) print $2}' > request_night.log
+
+#6
+awk '{print $1; }' /opt/access.log | sort | uniq -c | awk '{cmd = "host " $2 "|| echo " $2; while((cmd | getline line) > 0); close(cmd); if (index(line, "no PTR") != 0) line = $2; n=split(line, host_result, " "); printf "%d - %s\n", $1, host_result[n] }' | sort -k1n -k3
+
+#7
+awk -F'"' '{if ($3 ~ /^ 4/) {split($2, results, " "); if (results[3] ~ /HTTP\//) print results[2];}}' /opt/access.log | LC_COLLATE=C sort -ru > fail.log
+
