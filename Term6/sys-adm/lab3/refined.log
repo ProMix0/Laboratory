@@ -1,0 +1,943 @@
+Thu Sep 25 11:20:48 AM UTC 2025
+Script started on 2025-09-25 11:28:34+00:00 [TERM="screen" TTY="/dev/pts/2" COLUMNS="252" LINES="61"]
+?2004hroot@sysadm-lab3-avt219-13:~# apt install open-iscsi
+The following NEW packages will be installed:
+  open-iscsi
+0 upgraded, 1 newly installed, 0 to remove and 75 not upgraded.
+Need to get 323 kB of archives.
+After this operation, 1,254 kB of additional disk space will be used.
+Preconfiguring packages ...
+
+Preparing to unpack .../open-iscsi_2.1.5-1ubuntu1.1_amd64.deb ...
+Restarting services...
+ systemctl restart ModemManager.service
+ systemctl restart cron.service
+ /etc/needrestart/restart.d/dbus.service
+ systemctl restart getty@tty1.service
+ systemctl restart multipathd.service
+ systemctl restart networkd-dispatcher.service
+ systemctl restart packagekit.service
+ systemctl restart polkit.service
+ systemctl restart qemu-guest-agent.service
+ systemctl restart rsyslog.service
+ systemctl restart ssh.service
+ systemctl restart systemd-journald.service
+ systemctl restart systemd-logind.service
+ systemctl restart systemd-networkd.service
+ systemctl restart systemd-resolved.service
+ systemctl restart systemd-timesyncd.service
+ systemctl restart systemd-udevd.service
+ systemctl restart udisks2.service
+ systemctl restart unattended-upgrades.service
+ systemctl restart upower.service
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+
+iscsiadm -m discovery -t sendtargets -p 172.16.6.15
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt208.v10
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt208.v11
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt208.v12
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt208.v13
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt208.v2
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt208.v3
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt208.v4
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt208.v5
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt208.v6
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt208.v7
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt208.v8
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt208.v9
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt209.v1
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt209.v10
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt209.v11
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt209.v12
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt209.v13
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt209.v14
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt209.v15
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt209.v16
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt209.v2
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt209.v3
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt209.v4
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt209.v5
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt209.v6
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt209.v7
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt209.v8
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt209.v9
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt210.v1
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt210.v10
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt210.v11
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt210.v12
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt210.v13
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt210.v14
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt210.v2
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt210.v3
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt210.v4
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt210.v5
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt210.v6
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt210.v7
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt210.v8
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt210.v9
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt218.v1
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt218.v10
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt218.v11
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt218.v12
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt218.v13
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt218.v14
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt218.v15
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt218.v2
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt218.v3
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt218.v4
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt218.v5
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt218.v6
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt218.v7
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt218.v8
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt218.v9
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt219.v1
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt219.v10
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt219.v11
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt219.v12
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt219.v13
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt219.v14
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt219.v15
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt219.v16
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt219.v2
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt219.v3
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt219.v4
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt219.v5
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt219.v6
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt219.v7
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt219.v8
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt219.v9
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt241.v1
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt241.v10
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt241.v11
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt241.v12
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt241.v13
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt241.v14
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt241.v2
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt241.v3
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt241.v4
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt241.v5
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt241.v6
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt241.v7
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt241.v8
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt241.v9
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt242.v1
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt242.v10
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt242.v11
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt242.v12
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt242.v13
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt242.v14
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt242.v15
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt242.v2
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt242.v3
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt242.v4
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt242.v5
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt242.v6
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt242.v7
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt242.v8
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt242.v9
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt243.v1
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt243.v10
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt243.v11
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt243.v12
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt243.v13
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt243.v14
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt243.v15
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt243.v16
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt243.v2
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt243.v3
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt243.v4
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt243.v5
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt243.v6
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt243.v7
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt243.v8
+172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt243.v9
+
+root@sysadm-lab3-avt219-13:~# iscsiadm --mode node --targetname 192.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt219.v13 --login
+Logging in to [iface: default, target: iqn.2025-04.ru.nstu.cs.vt:avt219.v13, portal: 172.16.6.15,3260]
+Login to [iface: default, target: iqn.2025-04.ru.nstu.cs.vt:avt219.v13, portal: 172.16.6.15,3260] successful.
+
+iscsiadm -m session -o show
+tcp:[1] 172.16.6.15:3260,1 iqn.2025-04.ru.nstu.cs.vt:avt219.v13 (non-flash)
+
+diff -y /root/before.txt /proc/partitions
+?m2a0j0o4rlminor  #blocks  name					major minor  #blocks  name
+
+   7	    0	   65296 loop0					   7	    0	   65296 loop0
+   7	    2	   52120 loop2					   7	    2	   52120 loop2
+   7	    3	   91548 loop3					   7	    3	   91548 loop3
+   7	    4	   65296 loop4					   7	    4	   65296 loop4
+   7	    5	   89076 loop5					   7	    5	   89076 loop5
+   7	    6	   51988 loop6					   7	    6	   51988 loop6
+  11	    0	 1048575 sr0					  11	    0	 1048575 sr0
+   8	    0	33554432 sda					   8	    0	33554432 sda
+   8	    1	    1024 sda1					   8	    1	    1024 sda1
+   8	    2	 2097152 sda2					   8	    2	 2097152 sda2
+   8	    3	31454208 sda3					   8	    3	31454208 sda3
+ 253	    0	15724544 dm-0					 253	    0	15724544 dm-0
+							      >	   8	   16	  524288 sdb
+							      >	   8	   32	  524288 sdc
+?2004hroot@sysadm-lab3-avt219-13:~# lsblk
+?N2A0M0E4l			  MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+loop0			    7:0	   0 63.8M  1 loop /snap/core20/2599
+loop2			    7:2	   0 50.9M  1 loop /snap/snapd/24718
+loop3			    7:3	   0 89.4M  1 loop /snap/lxd/31333
+loop4			    7:4	   0 63.8M  1 loop /snap/core20/2582
+loop5			    7:5	   0   87M  1 loop /snap/lxd/27037
+loop6			    7:6	   0 50.8M  1 loop /snap/snapd/25202
+sda			    8:0	   0   32G  0 disk
+├─sda1			    8:1	   0	1M  0 part
+├─sda2			    8:2	   0	2G  0 part /boot
+└─sda3			    8:3	   0   30G  0 part
+  └─ubuntu--vg-ubuntu--lv 253:0	   0   15G  0 lvm  /
+sdb			    8:16   0  512M  0 disk
+sdc			    8:32   0  512M  0 disk
+sr0			   11:0	   1 1024M  0 rom
+
+?2004hroot@sysadm-lab3-avt219-13:~# fdisk /dev/sdc
+Welcome to fdisk (util-linux 2.37.2).
+0mChanges will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table.
+Created a new DOS disklabel with disk identifier 0xaa55cb65.
+
+?2004hCommand (m for help): p
+?12m0D0i4slk /dev/sdc: 512 MiB, 536870912 bytes, 1048576 sectors
+0mDisk model: VIRTUAL-DISK
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0xaa55cb65
+
+?2004hCommand (m for help): ?
+?3210m0?4:lunknown command0m
+
+?2004hCommand (m for help): m
+?2004l
+Help:
+1m
+  DOS (MBR)
+0m   a	 toggle a bootable flag
+   b   edit nested BSD disklabel
+   c   toggle the dos compatibility flag
+1m
+  Generic
+0m   d	 delete a partition
+   F   list free unpartitioned space
+   l   list known partition types
+   n   add a new partition
+   p   print the partition table
+   t   change a partition type
+   v   verify the partition table
+   i   print information about a partition
+1m
+  Misc
+0m   m	 print this menu
+   u   change display/entry units
+   x   extra functionality (experts only)
+1m
+  Script
+0m   I	 load disk layout from sfdisk script file
+   O   dump disk layout to sfdisk script file
+1m
+  Save & Exit
+0m   w	 write table to disk and exit
+   q   quit without saving changes
+1m
+  Create a new label
+0m   g	 create a new empty GPT partition table
+   G   create a new empty SGI (IRIX) partition table
+   o   create a new empty DOS partition table
+   s   create a new empty Sun partition table
+
+
+?2004hCommand (m for help): o
+?2004l
+Created a new DOS disklabel with disk identifier 0xdd92d2d5.
+
+?2004hCommand (m for help): p
+?12m0D0i4slk /dev/sdc: 512 MiB, 536870912 bytes, 1048576 sectors
+0mDisk model: VIRTUAL-DISK
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0xdd92d2d5
+
+?2004hCommand (m for help): n
+?P2a0r0t4iltion type
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended (container for logical partitions)
+?2004hSelect (default p): p
+??22000044lhPartition number (1-4, default 1):
+??22000044lhFirst sector (2048-1048575, default 2048):
+??22000044lhLast sector, +/-sectors or +/-size{K,M,G,T,P} (2048-1048575, default 1048575):
+?2004l
+Created a new partition 1 of type 'Linux' and of size 511 MiB.
+
+?2004hCommand (m for help): p
+?12m0D0i4slk /dev/sdc: 512 MiB, 536870912 bytes, 1048576 sectors
+0mDisk model: VIRTUAL-DISK
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0xdd92d2d5
+
+1mDevice    0m 1mBoot0m 1mStart0m 1m	End0m 1mSectors0m 1m Size0m 1mId0m 1mType0m
+/dev/sdc1	 2048 1048575 1046528  511M 83 Linux
+
+?2004hCommand (m for help): t
+?S2e0l0e4clted partition 1
+?2004hHex code or alias (type L to list all): L
+?2004l
+00 Empty	    24 NEC DOS		81 Minix / old Lin  bf Solaris
+01 FAT12	    27 Hidden NTFS Win	82 Linux swap / So  c1 DRDOS/sec (FAT-
+02 XENIX root	    39 Plan 9		83 Linux	    c4 DRDOS/sec (FAT-
+03 XENIX usr	    3c PartitionMagic	84 OS/2 hidden or   c6 DRDOS/sec (FAT-
+04 FAT16 <32M	    40 Venix 80286	85 Linux extended   c7 Syrinx
+05 Extended	    41 PPC PReP Boot	86 NTFS volume set  da Non-FS data
+06 FAT16	    42 SFS		87 NTFS volume set  db CP/M / CTOS / .
+07 HPFS/NTFS/exFAT  4d QNX4.x		88 Linux plaintext  de Dell Utility
+08 AIX		    4e QNX4.x 2nd part	8e Linux LVM	    df BootIt
+09 AIX bootable	    4f QNX4.x 3rd part	93 Amoeba	    e1 DOS access
+0a OS/2 Boot Manag  50 OnTrack DM	94 Amoeba BBT	    e3 DOS R/O
+0b W95 FAT32	    51 OnTrack DM6 Aux	9f BSD/OS	    e4 SpeedStor
+0c W95 FAT32 (LBA)  52 CP/M		a0 IBM Thinkpad hi  ea Linux extended
+0e W95 FAT16 (LBA)  53 OnTrack DM6 Aux	a5 FreeBSD	    eb BeOS fs
+0f W95 Ext'd (LBA)  54 OnTrackDM6	a6 OpenBSD	    ee GPT
+10 OPUS		    55 EZ-Drive		a7 NeXTSTEP	    ef EFI (FAT-12/16/
+11 Hidden FAT12	    56 Golden Bow	a8 Darwin UFS	    f0 Linux/PA-RISC b
+12 Compaq diagnost  5c Priam Edisk	a9 NetBSD	    f1 SpeedStor
+14 Hidden FAT16 <3  61 SpeedStor	ab Darwin boot	    f4 SpeedStor
+16 Hidden FAT16	    63 GNU HURD or Sys	af HFS / HFS+	    f2 DOS secondary
+17 Hidden HPFS/NTF  64 Novell Netware	b7 BSDI fs	    fb VMware VMFS
+18 AST SmartSleep   65 Novell Netware	b8 BSDI swap	    fc VMware VMKCORE
+1b Hidden W95 FAT3  70 DiskSecure Mult	bb Boot Wizard hid  fd Linux raid auto
+1c Hidden W95 FAT3  75 PC/IX		bc Acronis FAT32 L  fe LANstep
+1e Hidden W95 FAT1  80 Old Minix	be Solaris boot	    ff BBT
+
+Aliases:
+   linux	  - 83
+   swap		  - 82
+   extended	  - 05
+   uefi		  - EF
+   raid		  - FD
+   lvm		  - 8E
+   linuxex	  - 85
+?2004hHex code or alias (type L to list all): fd
+?C2h0a0n4gled type of partition 'Linux' to 'Linux raid autodetect'.
+
+?2004hCommand (m for help): p
+?12m0D0i4slk /dev/sdc: 512 MiB, 536870912 bytes, 1048576 sectors
+0mDisk model: VIRTUAL-DISK
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0xdd92d2d5
+
+1mDevice    0m 1mBoot0m 1mStart0m 1m	End0m 1mSectors0m 1m Size0m 1mId0m 1mType0m
+/dev/sdc1	 2048 1048575 1046528  511M fd Linux raid autodetect
+
+?2004hCommand (m for help): w
+?T2h0e04plartition table has been altered.
+Calling ioctl() to re-read partition table.
+Syncing disks.
+
+?2004hroot@sysadm-lab3-avt219-13:~# fdisk /dev/sdb
+Welcome to fdisk (util-linux 2.37.2).
+0mChanges will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+?2004hCommand (m for help): o
+?C2r0e0a4tled a new DOS disklabel with disk identifier 0x2d817133.
+
+?2004hCommand (m for help): p
+?12m0D0i4slk /dev/sdb: 512 MiB, 536870912 bytes, 1048576 sectors
+0mDisk model: VIRTUAL-DISK
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x2d817133
+
+?2004hCommand (m for help): n
+?P2a0r0t4iltion type
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended (container for logical partitions)
+?2004hSelect (default p): p
+??22000044lhPartition number (1-4, default 1):
+??22000044lhFirst sector (2048-1048575, default 2048):
+??22000044lhLast sector, +/-sectors or +/-size{K,M,G,T,P} (2048-1048575, default 1048575):
+?2004l
+Created a new partition 1 of type 'Linux' and of size 511 MiB.
+
+?2004hCommand (m for help): p
+?12m0D0i4slk /dev/sdb: 512 MiB, 536870912 bytes, 1048576 sectors
+0mDisk model: VIRTUAL-DISK
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x2d817133
+
+1mDevice    0m 1mBoot0m 1mStart0m 1m	End0m 1mSectors0m 1m Size0m 1mId0m 1mType0m
+/dev/sdb1	 2048 1048575 1046528  511M 83 Linux
+
+?2004hCommand (m for help): t
+?S2e0l0e4clted partition 1
+?2004hHex code or alias (type L to list all): fd
+?C2h0a0n4gled type of partition 'Linux' to 'Linux raid autodetect'.
+
+?2004hCommand (m for help): p
+?12m0D0i4slk /dev/sdb: 512 MiB, 536870912 bytes, 1048576 sectors
+0mDisk model: VIRTUAL-DISK
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x2d817133
+
+1mDevice    0m 1mBoot0m 1mStart0m 1m	End0m 1mSectors0m 1m Size0m 1mId0m 1mType0m
+/dev/sdb1	 2048 1048575 1046528  511M fd Linux raid autodetect
+
+?2004hCommand (m for help): w
+?T2h0e04plartition table has been altered.
+Calling ioctl() to re-read partition table.
+Syncing disks.
+
+?2004hroot@sysadm-lab3-avt219-13:~# parted /dev/sdb print
+?M2o0d0e4ll: IET VIRTUAL-DISK (scsi)
+Disk /dev/sdb: 537MB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags:
+
+Number	Start	End    Size   Type     File system  Flags
+ 1	1049kB	537MB  536MB  primary		    raid
+
+?2004hroot@sysadm-lab3-avt219-13:~# parted /dev/sdbC1Ppcrpirpnirtnitnt
+?M2o0d0e4ll: IET VIRTUAL-DISK (scsi)
+Disk /dev/sdc: 537MB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags:
+
+Number	Start	End    Size   Type     File system  Flags
+ 1	1049kB	537MB  536MB  primary		    raid
+
+?2004hroot@sysadm-lab3-avt219-13:~# apt install mdadm
+mdadm is already the newest version (4.2-0ubuntu2).
+0 upgraded, 0 newly installed, 0 to remove and 75 not upgraded.
+
+mdadm --create --verbose /dev/md0 --level=1 --raid-devices=2 /dev/sdb1 /dev/sdc1
+?m2d0a0d4ml: Note: this array has metadata at the start and
+    may not be suitable as a boot device.  If you plan to
+    store '/boot' on this device please ensure that
+    your boot-loader understands md/v1.x metadata, or use
+    --metadata=0.90
+mdadm: size set to 522240K
+Continue creating array?
+Continue creating array? (y/n) y
+mdadm: Defaulting to version 1.2 metadata
+mdadm: array /dev/md0 started.
+
+cat /proc/mdstat
+?P2e0r0s4olnalities : [linear] [multipath] [raid0] [raid1] [raid6] [raid5] [raid4] [raid10]
+md0 : active raid1 sdc1[1] sdb1[0]
+      522240 blocks super 1.2 [2/2] [UU]
+
+unused devices: <none>
+
+blkid /dev/md0
+?A2R0R0A4Yl/dev/md0 metadata=1.2 name=sysadm-lab3-avt219-13:0 UUID=37e51bd6:4c7f9fbe:92386b9e:e023e52d
+
+root@sysadm-lab3-avt219-13:~# pvcreate /dev/md0
+?20P0h4ylsical volume "/dev/md0" successfully created.
+
+?2004hroot@sysadm-lab3-avt219-13:~# vgcreate vg-avt219-v13 /dev/md0
+?20V0o4llume group "vg-avt219-v13" successfully created
+
+root@sysadm-lab3-avt219-13:~# vgdisplay
+?20-0-4-lVolume group ---
+  VG Name		ubuntu-vg
+  System ID
+  Format		lvm2
+  Metadata Areas	1
+  Metadata Sequence No	2
+  VG Access		read/write
+  VG Status		resizable
+  MAX LV		0
+  Cur LV		1
+  Open LV		1
+  Max PV		0
+  Cur PV		1
+  Act PV		1
+  VG Size		<30.00 GiB
+  PE Size		4.00 MiB
+  Total PE		7679
+  Alloc PE / Size	3839 / <15.00 GiB
+  Free	PE / Size	3840 / 15.00 GiB
+  VG UUID		6Ldp2J-THCx-buwD-2jr3-O3Uz-AqV9-HyyWTe
+
+  --- Volume group ---
+  VG Name		vg-avt219-v13
+  System ID
+  Format		lvm2
+  Metadata Areas	1
+  Metadata Sequence No	1
+  VG Access		read/write
+  VG Status		resizable
+  MAX LV		0
+  Cur LV		0
+  Open LV		0
+  Max PV		0
+  Cur PV		1
+  Act PV		1
+  VG Size		508.00 MiB
+  PE Size		4.00 MiB
+  Total PE		127
+  Alloc PE / Size	0 / 0
+  Free	PE / Size	127 / 508.00 MiB
+  VG UUID		8WrkfD-TB2G-8YbH-tkqT-EQLX-mIjj-AcVXEk
+
+lvcreate -L 355 vg-avt219-v13
+?20R0o4ulnding up size to full physical extent 356.00 MiB
+  Logical volume "lvol0" created.
+
+?2004hroot@sysadm-lab3-avt219-13:~# lsblk
+?N2A0M0E4l			    MAJ:MIN RM	SIZE RO TYPE  MOUNTPOINTS
+loop0			      7:0    0 63.8M  1 loop  /snap/core20/2599
+loop2			      7:2    0 50.9M  1 loop  /snap/snapd/24718
+loop3			      7:3    0 89.4M  1 loop  /snap/lxd/31333
+loop4			      7:4    0 63.8M  1 loop  /snap/core20/2582
+loop5			      7:5    0	 87M  1 loop  /snap/lxd/27037
+loop6			      7:6    0 50.8M  1 loop  /snap/snapd/25202
+sda			      8:0    0	 32G  0 disk
+├─sda1			      8:1    0	  1M  0 part
+├─sda2			      8:2    0	  2G  0 part  /boot
+└─sda3			      8:3    0	 30G  0 part
+  └─ubuntu--vg-ubuntu--lv   253:0    0	 15G  0 lvm   /
+sdb			      8:16   0	512M  0 disk
+└─sdb1			      8:17   0	511M  0 part
+  └─md0			      9:0    0	510M  0 raid1
+    └─vg--avt219--v13-lvol0 253:1    0	356M  0 lvm
+sdc			      8:32   0	512M  0 disk
+└─sdc1			      8:33   0	511M  0 part
+  └─md0			      9:0    0	510M  0 raid1
+    └─vg--avt219--v13-lvol0 253:1    0	356M  0 lvm
+sr0			     11:0    1 1024M  0 rom
+
+mkfs.ext4 /dev/vg-avt219-v13/lvol0
+?m2k0e024fls 1.46.5 (30-Dec-2021)
+Creating filesystem with 91136 4k blocks and 91152 inodes
+Filesystem UUID: 69d8f4ba-78dd-4530-99de-f69719072df4
+Superblock backups stored on blocks:
+	32768
+
+Allocating group tables: 0d/o3ne
+Writing inode tables: 0d/o3ne
+Creating journal (4096 blocks): done
+Writing superblocks and filesystem accounting information: 0d/o3ne
+
+pvdisplay
+?20-0-4-lPhysical volume ---
+  PV Name		/dev/sda3
+  VG Name		ubuntu-vg
+  PV Size		<30.00 GiB / not usable 0
+  Allocatable		yes
+  PE Size		4.00 MiB
+  Total PE		7679
+  Free PE		3840
+  Allocated PE		3839
+  PV UUID		WWL1og-lPIo-2TuY-TDP7-Pxtn-rcLR-frJW0q
+
+  --- Physical volume ---
+  PV Name		/dev/md0
+  VG Name		vg-avt219-v13
+  PV Size		510.00 MiB / not usable 2.00 MiB
+  Allocatable		yes
+  PE Size		4.00 MiB
+  Total PE		127
+  Free PE		38
+  Allocated PE		89
+  PV UUID		rrXcwQ-advG-tTNV-jxQ2-0d9l-PMKk-beKh0s
+
+vgdisplay
+?20-0-4-lVolume group ---
+  VG Name		ubuntu-vg
+  System ID
+  Format		lvm2
+  Metadata Areas	1
+  Metadata Sequence No	2
+  VG Access		read/write
+  VG Status		resizable
+  MAX LV		0
+  Cur LV		1
+  Open LV		1
+  Max PV		0
+  Cur PV		1
+  Act PV		1
+  VG Size		<30.00 GiB
+  PE Size		4.00 MiB
+  Total PE		7679
+  Alloc PE / Size	3839 / <15.00 GiB
+  Free	PE / Size	3840 / 15.00 GiB
+  VG UUID		6Ldp2J-THCx-buwD-2jr3-O3Uz-AqV9-HyyWTe
+
+  --- Volume group ---
+  VG Name		vg-avt219-v13
+  System ID
+  Format		lvm2
+  Metadata Areas	1
+  Metadata Sequence No	2
+  VG Access		read/write
+  VG Status		resizable
+  MAX LV		0
+  Cur LV		1
+  Open LV		0
+  Max PV		0
+  Cur PV		1
+  Act PV		1
+  VG Size		508.00 MiB
+  PE Size		4.00 MiB
+  Total PE		127
+  Alloc PE / Size	89 / 356.00 MiB
+  Free	PE / Size	38 / 152.00 MiB
+  VG UUID		8WrkfD-TB2G-8YbH-tkqT-EQLX-mIjj-AcVXEk
+
+lvdisplay
+?20-0-4-lLogical volume ---
+  LV Path		 /dev/ubuntu-vg/ubuntu-lv
+  LV Name		 ubuntu-lv
+  VG Name		 ubuntu-vg
+  LV UUID		 0dntZi-ww1d-407O-lIFO-Nwu1-1Y5D-nE5uEc
+  LV Write Access	 read/write
+  LV Creation host, time ubuntu-server, 2024-03-17 17:33:28 +0000
+  LV Status		 available
+  # open		 1
+  LV Size		 <15.00 GiB
+  Current LE		 3839
+  Segments		 1
+  Allocation		 inherit
+  Read ahead sectors	 auto
+  - currently set to	 256
+  Block device		 253:0
+
+  --- Logical volume ---
+  LV Path		 /dev/vg-avt219-v13/lvol0
+  LV Name		 lvol0
+  VG Name		 vg-avt219-v13
+  LV UUID		 BXo9vA-JrkA-WsAe-TX2v-i0XI-1kXB-kd0qsZ
+  LV Write Access	 read/write
+  LV Creation host, time sysadm-lab3-avt219-13, 2025-09-25 11:49:48 +0000
+  LV Status		 available
+  # open		 0
+  LV Size		 356.00 MiB
+  Current LE		 89
+  Segments		 1
+  Allocation		 inherit
+  Read ahead sectors	 auto
+  - currently set to	 256
+  Block device		 253:1
+
+root@sysadm-lab3-avt219-13:~# blkid vg-avt219-v13/lvol0
+vg-avt219-v13/lvol0: UUID="69d8f4ba-78dd-4530-99de-f69719072df4" BLOCK_SIZE="4096" TYPE="ext4"
+
+?2004hroot@sysadm-lab3-avt219-13:~# mkdir /mnt/3mlvoll0v2o3lm0_base
+??22000044lhroot@sysadm-lab3-avt219-13:~# cd /mnt/
+??22000044lhroot@sysadm-lab3-avt219-13:/mnt# mount/K /dev/vg-avt219-v13/lvol0 lvol0_base/
+??22000044lhroot@sysadm-lab3-avt219-13:/mnt# cd lvol0_base/
+??22000044lhroot@sysadm-lab3-avt219-13:/mnt/lvol0_base# ls
+?02m00014;l34mlost+found0m
+?(C22rC00eC@0vCr4eCohrCorsCtoeC@o-CstiCy@-CsssCayeCdsaCmarC-dcClmhCa-)Cbl`C3a'C-b:dCa3'Cv-K:CtaC2vc1t392md-1d'192:3-3:1m3/3mm:ldn/vdtmo2/nl3lt0mv/_olbilvaf0os=_le/b0/da_esbvea/#sread#nddom of=test.bin bs=10M count=10
+?1200+004lrecords in
+10+0 records out
+104857600 bytes (105 MB, 100 MiB) copied, 0.210661 s, 498 MB/s
+
+md5sum -b test.bin
+bb6779a88a02ad1e525cd0978a9 *test.bin
+
+?2004hroot@sysadm-lab3-avt219-13:/mnt/lvol0_base# ls
+?02m00014;l34mlost+found0m  test.bin
+
+?2004hroot@sysadm-lab3-avt219-13:/mnt/lvol0_base# lKvlcvrdeiastpela-yh
+?20-0-4-lLogical volume ---
+  LV Path		 /dev/ubuntu-vg/ubuntu-lv
+  LV Name		 ubuntu-lv
+  VG Name		 ubuntu-vg
+  LV UUID		 0dntZi-ww1d-407O-lIFO-Nwu1-1Y5D-nE5uEc
+  LV Write Access	 read/write
+  LV Creation host, time ubuntu-server, 2024-03-17 17:33:28 +0000
+  LV Status		 available
+  # open		 1
+  LV Size		 <15.00 GiB
+  Current LE		 3839
+  Segments		 1
+  Allocation		 inherit
+  Read ahead sectors	 auto
+  - currently set to	 256
+  Block device		 253:0
+
+  --- Logical volume ---
+  LV Path		 /dev/vg-avt219-v13/lvol0
+  LV Name		 lvol0
+  VG Name		 vg-avt219-v13
+  LV UUID		 BXo9vA-JrkA-WsAe-TX2v-i0XI-1kXB-kd0qsZ
+  LV Write Access	 read/write
+  LV Creation host, time sysadm-lab3-avt219-13, 2025-09-25 11:49:48 +0000
+  LV Status		 available
+  # open		 1
+  LV Size		 356.00 MiB
+  Current LE		 89
+  Segments		 1
+  Allocation		 inherit
+  Read ahead sectors	 auto
+  - currently set to	 256
+  Block device		 253:1
+
+root@sysadm-lab3-avt219-13:/mnt/lvol0_base# vgdisplay
+?20-0-4-lVolume group ---
+  VG Name		ubuntu-vg
+  System ID
+  Format		lvm2
+  Metadata Areas	1
+  Metadata Sequence No	2
+  VG Access		read/write
+  VG Status		resizable
+  MAX LV		0
+  Cur LV		1
+  Open LV		1
+  Max PV		0
+  Cur PV		1
+  Act PV		1
+  VG Size		<30.00 GiB
+  PE Size		4.00 MiB
+  Total PE		7679
+  Alloc PE / Size	3839 / <15.00 GiB
+  Free	PE / Size	3840 / 15.00 GiB
+  VG UUID		6Ldp2J-THCx-buwD-2jr3-O3Uz-AqV9-HyyWTe
+
+  --- Volume group ---
+  VG Name		vg-avt219-v13
+  System ID
+  Format		lvm2
+  Metadata Areas	1
+  Metadata Sequence No	2
+  VG Access		read/write
+  VG Status		resizable
+  MAX LV		0
+  Cur LV		1
+  Open LV		1
+  Max PV		0
+  Cur PV		1
+  Act PV		1
+  VG Size		508.00 MiB
+  PE Size		4.00 MiB
+  Total PE		127
+  Alloc PE / Size	89 / 356.00 MiB
+  Free	PE / Size	38 / 152.00 MiB
+  VG UUID		8WrkfD-TB2G-8YbH-tkqT-EQLX-mIjj-AcVXEk
+
+root@sysadm-lab3-avt219-13:/mnt/lvol0_base# lvcreate -s -L 152 vg-avt219-v13/lvol0
+?20L0o4glical volume "lvol1" created.
+
+?2004hroot@sysadm-lab3-avt219-13:/mnt/lvol0_base# lvc8rPevagtdeis-psla-yL 152 vlKgv-oalv0tK219-v13/lvol0
+?20-0-4-lVolume group ---
+  VG Name		ubuntu-vg
+  System ID
+  Format		lvm2
+  Metadata Areas	1
+  Metadata Sequence No	2
+  VG Access		read/write
+  VG Status		resizable
+  MAX LV		0
+  Cur LV		1
+  Open LV		1
+  Max PV		0
+  Cur PV		1
+  Act PV		1
+  VG Size		<30.00 GiB
+  PE Size		4.00 MiB
+  Total PE		7679
+  Alloc PE / Size	3839 / <15.00 GiB
+  Free	PE / Size	3840 / 15.00 GiB
+  VG UUID		6Ldp2J-THCx-buwD-2jr3-O3Uz-AqV9-HyyWTe
+
+  --- Volume group ---
+  VG Name		vg-avt219-v13
+  System ID
+  Format		lvm2
+  Metadata Areas	1
+  Metadata Sequence No	4
+  VG Access		read/write
+  VG Status		resizable
+  MAX LV		0
+  Cur LV		2
+  Open LV		1
+  Max PV		0
+  Cur PV		1
+  Act PV		1
+  VG Size		508.00 MiB
+  PE Size		4.00 MiB
+  Total PE		127
+  Alloc PE / Size	127 / 508.00 MiB
+  Free	PE / Size	0 / 0
+  VG UUID		8WrkfD-TB2G-8YbH-tkqT-EQLX-mIjj-AcVXEk
+
+?2004hroot@sysadm-lab3-avt219-13:/mnt/lvol0_base# vC2gCPd1i@slp1l@avy
+?20-0-4-lLogical volume ---
+  LV Path		 /dev/ubuntu-vg/ubuntu-lv
+  LV Name		 ubuntu-lv
+  VG Name		 ubuntu-vg
+  LV UUID		 0dntZi-ww1d-407O-lIFO-Nwu1-1Y5D-nE5uEc
+  LV Write Access	 read/write
+  LV Creation host, time ubuntu-server, 2024-03-17 17:33:28 +0000
+  LV Status		 available
+  # open		 1
+  LV Size		 <15.00 GiB
+  Current LE		 3839
+  Segments		 1
+  Allocation		 inherit
+  Read ahead sectors	 auto
+  - currently set to	 256
+  Block device		 253:0
+
+  --- Logical volume ---
+  LV Path		 /dev/vg-avt219-v13/lvol0
+  LV Name		 lvol0
+  VG Name		 vg-avt219-v13
+  LV UUID		 BXo9vA-JrkA-WsAe-TX2v-i0XI-1kXB-kd0qsZ
+  LV Write Access	 read/write
+  LV Creation host, time sysadm-lab3-avt219-13, 2025-09-25 11:49:48 +0000
+  LV snapshot status	 source of
+			 lvol1 [active]
+  LV Status		 available
+  # open		 1
+  LV Size		 356.00 MiB
+  Current LE		 89
+  Segments		 1
+  Allocation		 inherit
+  Read ahead sectors	 auto
+  - currently set to	 256
+  Block device		 253:1
+
+  --- Logical volume ---
+  LV Path		 /dev/vg-avt219-v13/lvol1
+  LV Name		 lvol1
+  VG Name		 vg-avt219-v13
+  LV UUID		 b0HVPs-pBuW-onaz-0qcb-T79O-Ne2v-13ZbwS
+  LV Write Access	 read/write
+  LV Creation host, time sysadm-lab3-avt219-13, 2025-09-25 11:58:08 +0000
+  LV snapshot status	 active destination for lvol0
+  LV Status		 available
+  # open		 0
+  LV Size		 356.00 MiB
+  Current LE		 89
+  COW-table size	 152.00 MiB
+  COW-table LE		 38
+  Allocated to snapshot	 0.01%
+  Snapshot chunk size	 4.00 KiB
+  Segments		 1
+  Allocation		 inherit
+  Read ahead sectors	 auto
+  - currently set to	 256
+  Block device		 253:4
+
+?2004hroot@sysadm-lab3-avt219-13:/mnt/lvol0_base# cd ..
+?2004hroot@sysadm-lab3-avt219-13:/mnt# mkdir lvol0_snap
+root@sysadm-lab3-avt219-13:/mnt# mount /dev/vg-avt219-v13/lvol1 lvol0_snap/
+??22000044lhroot@sysadm-lab3-avt219-13:/mnt# lKscd lvol0_base/
+
+??22000044lhroot@sysadm-lab3-avt219-13:/mnt/lvol0_base# ls
+?02m00014;l34mlost+found0m  test.bin
+
+?(C22rC00eC@0vCr4eCohrCorsCtoeC@o-CstiCy@-CsssCayeCdsaCmarC-dcClmhCa-)Cbl`C3a'C-b:dCa3'Cv-K:CtaC2vc1t392md-1d'192:3-3:1m3/3mm:ldn/vdtmo2/nl3lt0mv/_olbilvaf0os=_le/b0/da_esbvea/#sread#nddom of=test.bin bs=10M count=10
+?2004l
+10+0 records in
+10+0 records out
+104857600 bytes (105 MB, 100 MiB) copied, 28.0939 s, 3.7 MB/s
+?2004hroot@sysadm-lab3-avt219-13:/mnt/lvol0_base#
+md5sum -b test.bin
+656b92da3344a8060732251e9d5 *test.bin
+
+?2004hroot@sysadm-lab3-avt219-13:/mnt/lvol0_base# cd ../lvol0_snap/
+md5sum -b test.bin
+bb6779a88a02ad1e525cd0978a9 *test.bin
+
+?2004hroot@sysadm-lab3-avt219-13:/mnt/lvol0_snap# lvdisplay
+?20-0-4-lLogical volume ---
+  LV Path		 /dev/ubuntu-vg/ubuntu-lv
+  LV Name		 ubuntu-lv
+  VG Name		 ubuntu-vg
+  LV UUID		 0dntZi-ww1d-407O-lIFO-Nwu1-1Y5D-nE5uEc
+  LV Write Access	 read/write
+  LV Creation host, time ubuntu-server, 2024-03-17 17:33:28 +0000
+  LV Status		 available
+  # open		 1
+  LV Size		 <15.00 GiB
+  Current LE		 3839
+  Segments		 1
+  Allocation		 inherit
+  Read ahead sectors	 auto
+  - currently set to	 256
+  Block device		 253:0
+
+  --- Logical volume ---
+  LV Path		 /dev/vg-avt219-v13/lvol0
+  LV Name		 lvol0
+  VG Name		 vg-avt219-v13
+  LV UUID		 BXo9vA-JrkA-WsAe-TX2v-i0XI-1kXB-kd0qsZ
+  LV Write Access	 read/write
+  LV Creation host, time sysadm-lab3-avt219-13, 2025-09-25 11:49:48 +0000
+  LV snapshot status	 source of
+			 lvol1 [active]
+  LV Status		 available
+  # open		 1
+  LV Size		 356.00 MiB
+  Current LE		 89
+  Segments		 1
+  Allocation		 inherit
+  Read ahead sectors	 auto
+  - currently set to	 256
+  Block device		 253:1
+
+  --- Logical volume ---
+  LV Path		 /dev/vg-avt219-v13/lvol1
+  LV Name		 lvol1
+  VG Name		 vg-avt219-v13
+  LV UUID		 b0HVPs-pBuW-onaz-0qcb-T79O-Ne2v-13ZbwS
+  LV Write Access	 read/write
+  LV Creation host, time sysadm-lab3-avt219-13, 2025-09-25 11:58:08 +0000
+  LV snapshot status	 active destination for lvol0
+  LV Status		 available
+  # open		 1
+  LV Size		 356.00 MiB
+  Current LE		 89
+  COW-table size	 152.00 MiB
+  COW-table LE		 38
+  Allocated to snapshot	 66.15%
+  Snapshot chunk size	 4.00 KiB
+  Segments		 1
+  Allocation		 inherit
+  Read ahead sectors	 auto
+  - currently set to	 256
+  Block device		 253:4
+
+?2004hroot@sysadm-lab3-avt219-13:/mnt/lvol0_snap# cd ..
+??22000044lhroot@sysadm-lab3-avt219-13:/mnt# umount lvol0_snap/
+
+lvremove vg-avt219-v13/lvol1
+?D2o00y4olu really want to remove and DISCARD active logical volume vg-avt219-v13/lvol1? [y/n]: y
+  Logical volume "lvol1" successfully removed
+
+Script done on 2025-09-25 12:02:28+00:00 [COMMAND_EXIT_CODE="0"]
+

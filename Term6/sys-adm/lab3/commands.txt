@@ -1,0 +1,54 @@
+apt install open-iscsi
+vim /etc/iscsi/initiatorname.iscsi
+vim /etc/iscsi/iscsid.conf
+systemctl restart iscsid open-iscsi
+iscsiadm -m discovery -t sendtargets -p 172.16.6.15
+cat /proc/patrtitions > 3m/root/before.txt
+iscsiadm --mode node --targetname iqn.2025-04.ru.nstu.cs.vt:avt219.v13 --login
+iscsiadm -m session -o show
+diff /root/before.txt /proc/partitions
+fdisk /dev/sdb
+ o
+ n
+ p
+ t
+ fd
+ w
+fdisk /dev/sdc 
+ o
+ n
+ p
+ t
+ fd
+ w
+parted /dev/sdb print
+parted /dev/sdc print
+apt install mdadm
+mdadm --detail --scan
+mdadm --create --verbose /dev/md0 --level=1 --raid-devices=2 /dev/sdb1 /dev/sdc1
+cat /proc/mdstat
+pvcreate /dev/md0
+vgcreate vg-avt219-v13 /dev/md0
+lvcreate -L 355 vg-avt219-v13
+mkfs.ext4 /dev/vg-avt219-v13/lvol0
+pvdisplay
+vgdisplay
+lvdisplay
+blkid /dev/vg-avt219-v13/lvol0
+mkdir /mnt/lvol0_base
+cd /mnt/
+mount/dev/vg-avt219-v13/lvol0 lvol0_base/
+cd lvol0_base/
+dd if=/dev/random of=test.bin bs=10M count=10
+md5sum -b test.bin
+lvcreate -s -L 152 vg-avt219-v13/lvol0
+mount /dev/vg-avt219-v13/lvol1 lvol0_snap/
+cd lvol0_snap/
+dd if=/dev/random of=test.bin bs=10M count=10
+md5sum -b test.bin
+cd ../lvol0_base/
+md5sum -b test.bin
+lvdisplay
+umount lvol0_snap/
+lvremove vg-avt219-v13/lvol1
+
