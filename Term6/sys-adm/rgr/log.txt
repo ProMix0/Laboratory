@@ -1,0 +1,211 @@
+Конфигурация bind сервера:
+
+options {
+        directory "/var/bind";
+        pid-file "/run/named/named.pid";
+
+        listen-on-v6 port 55 { any; };
+        listen-on port 55 { any; };
+};
+view "test" {
+        match-clients { any; };
+        recursion yes;
+        zone "primulus.v13.avt219.example.org" {
+                type master;
+                file "pri/primulus.v13.avt219.example.org.zone";
+                allow-query { any; };
+        };
+        zone "0.168.192.in-addr.arpa" {
+                type master;
+                file "pri/168.192.in-addr.arpa.zone";
+                allow-query { any; };
+        };
+};
+
+Конфигурация зоны:
+
+$TTL 10m
+$ORIGIN primulus.v13.avt219.example.org.
+@       IN SOA  ns.primulus.v13.avt219.example.org.     admin.primulus.v13.avt219.example.org. (
+        2025092601      ; serial
+        3h      ; refresh
+        1h      ; retry
+        1w      ; expiry
+        1d )    ; minimum
+;
+
+                IN MX   10 mail.primulus.v13.avt219.example.org.
+                IN MX   20 mail1.primulus.v13.avt219.example.org.
+                IN TXT  "Misha Zavertkin"
+                IN NS   ns.primulus.v13.avt219.example.org.
+www             IN A    192.168.0.3
+ns              IN A    192.168.0.246
+mail            IN A    192.168.0.5
+mail1           IN A    192.168.0.6
+
+Конфигурация обратной зоны:
+
+$TTL 10m
+$ORIGIN 0.168.192.in-addr.arpa.
+@       IN SOA  ns.primulus.v13.avt219.example.org.     admin.primulus.v13.avt219.example.org. (
+        2025092601      ; serial
+        3h      ; refresh
+        1h      ; retry
+        1w      ; expiry
+        1d )    ; minimum
+
+                IN NS   ns.primulus.v13.avt219.example.org.
+3               IN PTR  www.primulus.v13.avt219.example.org.
+246             IN PTR  ns.primulus.v13.avt219.example.org.
+5               IN PTR  mail.primulus.v13.avt219.example.org.
+6               IN PTR  mail1.primulus.v13.avt219.example.org.
+
+246     IN PTR  ns.primulus.v13.avt219.example.org.
+
+
+В качестве firewall будет использоваться ufw:
+
+sudo systemctl enable --now ufw.service
+sudo ufw allow 55/tcp
+sudo ufw allow 55/udp
+
+sudo ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+55/tcp                     ALLOW       Anywhere
+55/udp                     ALLOW       Anywhere
+55/tcp (v6)                ALLOW       Anywhere (v6)
+55/udp (v6)                ALLOW       Anywhere (v6)
+
+
+sudo ufw allow 55/tcp
+sudo ufw allow 55/udp
+
+sudo ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+55/tcp                     ALLOW       Anywhere
+55/udp                     ALLOW       Anywhere
+55/tcp (v6)                ALLOW       Anywhere (v6)
+55/udp (v6)                ALLOW       Anywhere (v6)
+
+
+sudo ufw allow 55/tcp
+sudo ufw allow 55/udp
+
+sudo ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+55/tcp                     ALLOW       Anywhere
+55/udp                     ALLOW       Anywhere
+55/tcp (v6)                ALLOW       Anywhere (v6)
+55/udp (v6)                ALLOW       Anywhere (v6)
+
+sudo ufw enable
+
+Примеры запросов:
+
+dig primulus.v13.avt219.example.org @127.0.0.1 -p 55 ANY
+
+; <<>> DiG 9.18.37 <<>> primulus.v13.avt219.example.org @127.0.0.1 -p 55 ANY
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 43869
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 5, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: c68a65072774bada0100000068d60ea8e673062ee48b51e7 (good)
+;; QUESTION SECTION:
+;primulus.v13.avt219.example.org. IN	ANY
+
+;; ANSWER SECTION:
+primulus.v13.avt219.example.org. 600 IN	SOA	ns.primulus.v13.avt219.example.org. admin.primulus.v13.avt219.example.org. 2025092601 10800 3600 604800 86400
+primulus.v13.avt219.example.org. 600 IN	MX	20 mail1.primulus.v13.avt219.example.org.
+primulus.v13.avt219.example.org. 600 IN	MX	10 mail.primulus.v13.avt219.example.org.
+primulus.v13.avt219.example.org. 600 IN	TXT	"Misha Zavertkin"
+primulus.v13.avt219.example.org. 600 IN	NS	ns.primulus.v13.avt219.example.org.
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#55(127.0.0.1) (TCP)
+;; WHEN: Fri Sep 26 10:55:20 +07 2025
+;; MSG SIZE  rcvd: 218
+
+
+dig mail.primulus.v13.avt219.example.org @127.0.0.1 -p 55 ANY
+
+; <<>> DiG 9.18.37 <<>> mail.primulus.v13.avt219.example.org @127.0.0.1 -p 55 ANY
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 16160
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 7ea50b05e9d9c7470100000068d60ee9aa23acda55000cc2 (good)
+;; QUESTION SECTION:
+;mail.primulus.v13.avt219.example.org. IN ANY
+
+;; ANSWER SECTION:
+mail.primulus.v13.avt219.example.org. 600 IN A	192.168.0.5
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#55(127.0.0.1) (TCP)
+;; WHEN: Fri Sep 26 10:56:25 +07 2025
+;; MSG SIZE  rcvd: 109
+
+dig 6.0.168.192.in-addr.arpa. @127.0.0.1 -p 55 ANY
+
+; <<>> DiG 9.18.37 <<>> 6.0.168.192.in-addr.arpa. @127.0.0.1 -p 55 ANY
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 41773
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 1ad964dbc00dcd530100000068d60ef2dec57ce1f835f80b (good)
+;; QUESTION SECTION:
+;6.0.168.192.in-addr.arpa.	IN	ANY
+
+;; ANSWER SECTION:
+6.0.168.192.in-addr.arpa. 600	IN	PTR	mail1.primulus.v13.avt219.example.org.
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#55(127.0.0.1) (TCP)
+;; WHEN: Fri Sep 26 10:56:34 +07 2025
+;; MSG SIZE  rcvd: 132
+
+После изменения записей в зоне нужно перезапустить сервер:
+
+sudo systemctl reload named.service
+
+dig mail.primulus.v13.avt219.example.org @127.0.0.1 -p 55 ANY
+
+; <<>> DiG 9.18.37 <<>> mail.primulus.v13.avt219.example.org @127.0.0.1 -p 55 ANY
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 24155
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: b5b4b7238ccd7fc60100000068d60f4c1f30a5774a47339a (good)
+;; QUESTION SECTION:
+;mail.primulus.v13.avt219.example.org. IN ANY
+
+;; ANSWER SECTION:
+mail.primulus.v13.avt219.example.org. 600 IN A	192.168.0.55
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#55(127.0.0.1) (TCP)
+;; WHEN: Fri Sep 26 10:58:04 +07 2025
+;; MSG SIZE  rcvd: 109
+
+
