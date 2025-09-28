@@ -247,28 +247,46 @@ func print_options(w io.Writer, table []IdName) {
 }
 
 const histogram_script = `
-<script src="static/chart.js"></script>
+<script type="application/javascript">
+  const radius = 200;
 
-<script>
-  const ctx = document.getElementById('histogram');
+  const canvas = document.getElementById('histogram');
+  var ctx = canvas.getContext("2d");
+  const labels = [%s];
+  const data = [%s];
+  var portions = [];
+  const styles = ["rgb(0,200,0)","rgb(200,0,0)"];
 
-  new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: [%s],
-      datasets: [{
-        data: [%s],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
+  var sum = 0;
+  for (var i = 0; i < data.length; i++) {
+      sum += data[i];
+  }
+  for (var i = 0; i < data.length; i++) {
+      portions[i] = data[i]/sum;
+  }
+
+  var start_angle = -Math.PI/2;
+  var end_angle = 0;
+  for (var i = 0; i < data.length; i++) {
+    end_angle = start_angle + 2 * Math.PI * portions[i];
+    ctx.fillStyle = styles[i%%2];
+
+    ctx.beginPath();
+    ctx.moveTo(250, 250);
+    ctx.arc(250, 250, radius, start_angle, end_angle, false);
+    ctx.lineTo(250, 250);
+    ctx.closePath();
+    ctx.fill();
+
+    const center = (start_angle + end_angle)/2;
+    ctx.fillStyle = "rgb(0,0,0)";
+    ctx.fillText(labels[i], 250 + Math.cos(center) * 200, 250 + Math.sin(center) * 200, 100);
+    var offset = 10;
+    if (Math.sin(center) < 0) offset = -offset;
+    ctx.fillText(data[i], 250 + Math.cos(center) * 200, 250 + Math.sin(center) * 200 + offset, 100);
+
+    start_angle = end_angle;
+  }
 </script>
 `
 
@@ -282,7 +300,7 @@ func PrintHistogram(w http.ResponseWriter, query string, data []ClientAndSum) {
 		fmt.Fprintf(&labels, "'%s',", element.Client)
 		fmt.Fprintf(&values, "%d,", element.Sum)
 	}
-	fmt.Fprintf(w, `<div><canvas id="histogram"/></div>`)
+	fmt.Fprintf(w, `<div><canvas id="histogram" width="500" height="500"/></div>`)
 	fmt.Fprintf(w, histogram_script, labels.String(), values.String())
 
 	fmt.Fprintf(w, "</div>")
