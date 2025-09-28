@@ -140,28 +140,26 @@ func print_options(w io.Writer, table []IdName) {
 }
 
 const histogram_script = `
-<script src="static/chart.js"></script>
+<script type="application/javascript">
+  const width = 100;
+  const height = 300;
 
-<script>
-  const ctx = document.getElementById('histogram');
+  const canvas = document.getElementById('histogram');
+  var ctx = canvas.getContext("2d");
+  const labels = [%s];
+  const data = [%s];
 
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: [%s],
-      datasets: [{
-        data: [%s],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
+  var max = 0;
+  for (var i = 0; i < data.length; i++) {
+    if (data[i] > max)
+      max = data[i];
+  }
+
+  for (var i = 0; i < data.length; i++) {
+    ctx.fillText(data[i], i * width, 15 + (height - height * data[i] / max), width);
+    ctx.fillRect(i * width, 30 + (height - height * data[i] / max), width * 0.9, height * data[i] / max);
+    ctx.fillText(labels[i], i * width, height + 45, width);
+  }
 </script>
 `
 
@@ -175,7 +173,7 @@ func PrintHistogram(w http.ResponseWriter, query string, data []ClientAndSum) {
 		fmt.Fprintf(&labels, "'%s',", element.Client)
 		fmt.Fprintf(&values, "%d,", element.Sum)
 	}
-	fmt.Fprintf(w, `<div><canvas id="histogram"/></div>`)
+	fmt.Fprintf(w, `<div><canvas id="histogram" width="500" height="350"/></div>`)
 	fmt.Fprintf(w, histogram_script, labels.String(), values.String())
 
 	fmt.Fprintf(w, "</div>")
