@@ -1,0 +1,46 @@
+flight(1001, "Astana", 23000).
+flight(1002, "Moscow", 7500).
+flight(1003, "Paris", 43000).
+flight(1004, "Astana", 39000).
+flight(1005, "Moscow", 55000).
+flight(1006, "Paris", 45000).
+flight(1007, "Astana", 54000).
+flight(1008, "Moscow", 60000).
+flight(1009, "Paris", 67000).
+flight(1010, "Astana", 57000).
+
+print_all :-
+    flight(Number, City, Price),
+    write("Number of flight: "), write(Number),
+    write(", City: "), write(City),
+    write(", Price: "), write(Price), nl.
+print_all.
+
+
+find_by_number(Number) :-
+    flight(Number, City,_),
+    write("City: "), write(City), nl.
+
+
+find_by_city(City, MaxPrice) :-
+    flight(Number, City, Price),
+    Price =< MaxPrice,
+    write("Number of flight: "), write(Number),
+    write(", City: "), write(City),
+    write(", Price: "), write(Price), nl,
+    fail.
+find_by_city(_, _).
+
+menu :-
+    repeat,
+    write("Choose option: "), read(Choice),
+    do_action(Choice),
+    Choice = 4, !.
+
+
+do_action(1) :- !, print_all.
+do_action(2) :- !, write("Enter number of flight: "), read(Number), find_by_number(Number).
+do_action(3) :- !, write("Enter city: "), read(City), write("Enter maximum price: "), read(MaxPrice), find_by_city(City, MaxPrice).
+do_action(4) :- !, write("Exiting"), nl.
+do_action(_) :- write("Invalid choice, try again."), nl.
+

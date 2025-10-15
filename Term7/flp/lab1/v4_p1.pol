@@ -1,0 +1,85 @@
+parent("Elena","Alice").
+parent("Alex","Alice").
+parent("Elena","Valeri").
+parent("Alex","Valeri").
+parent("Elena","Victor").
+parent("Alex","Victor").
+parent("Galina","Elena").
+parent("Greg","Elena").
+parent("Galina","Iren").
+parent("Greg","Iren").
+parent("Iren","Mike").
+parent("Grig", "Mike").
+
+man("Alex").
+man("Greg").
+man("Grig").
+man("Victor").
+man("Mike").
+
+woman("Elena").
+woman("Iren").
+woman("Galina").
+woman("Alice").
+woman("Valeri").
+
+married("Elena", "Alex"). 
+married("Galina", "Greg"). 
+married("Iren", "Grig"). 
+
+grandson(Y) :-
+    parent(Y, P),
+    parent(P, X),man(X),
+    write(X).
+
+grandmother(X) :-
+    parent(P, X),
+    parent(Y, P),
+    woman(Y),
+    write(Y).
+
+who_brother(X) :-
+	parent(P, X),
+    parent(P, Y),
+    man(Y),
+    Y \= X,
+    write(Y).
+
+brother(Y, X) :-
+    man(Y),
+    parent(P, Y),
+    parent(P, X),
+    Y \= X.
+
+cousine(X) :-
+    parent(P, X),
+  parent(Y, P),
+    parent(Y, Z),
+    Z \= P,
+    parent(Z, R),
+    woman(R),
+    write(R).
+
+aunt(X) :-
+    parent(P, X),
+    parent(Y, P),
+    parent(Y, Z),
+    Z \= P,
+    woman(Z),
+    write(Z).
+
+niece(X) :-
+    parent(P, X),
+    parent(P, Z),
+    Z \= X,
+    parent(Z, R),
+    woman(R),
+    write(R).
+
+motherinlaw(X) :-
+    man(X),
+    married(P, X),
+    parent(Y, P),
+    woman(Y),
+    write(Y).
+

@@ -1,0 +1,48 @@
+even_sum_tail(N, Sum) :-
+    Nnew is N - N mod 2,
+    even_sum_tail(Nnew, 0, Sum).
+
+even_sum_tail(N, Acc, Sum) :-
+    N < 2, !,
+    Sum = Acc.
+
+even_sum_tail(N, Acc, Sum) :-
+    !,
+    N1 is N - 2,
+    Acc1 is Acc + N,
+    even_sum_tail(N1, Acc1, Sum).
+
+
+even_sum(N, 0) :-
+    N < 2, !.
+
+even_sum(N, Sum) :-
+    N >= 2,
+    Nnew is N - N mod 2,
+    N1 is Nnew - 2,
+    even_sum(N1, Rest),
+    Sum is Rest + Nnew.
+
+
+insn(Elem, Pos, List, Result) :-
+    insn(Elem, Pos, List, [], Result), !.
+
+insn(Elem, 1, Rest, Acc, Result) :-
+    append(Acc, [Elem|Rest], Result).
+
+insn(Elem, _, [], Acc, Result) :-
+    append(Acc, [Elem], Result).
+
+insn(Elem, Pos, [H|T], Acc, Result) :-
+    Pos > 1,
+    Pos1 is Pos - 1,
+    append(Acc, [H], NewAcc), !,
+    insn(Elem, Pos1, T, NewAcc, Result).
+
+
+list_of_lists_insn(_, _, [], []).  
+
+list_of_lists_insn(Elem, Pos, [List|Rest], [NewList|NewRest]) :-
+    insn(Elem, Pos, List, NewList),
+    list_of_lists_insn(Elem, Pos, Rest, NewRest).
+
