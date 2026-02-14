@@ -6,4 +6,5 @@
 *.so
 .idea/*
 .ipynb*
+*.o
 
